@@ -15,7 +15,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    $mensaje = "⚠️ El correo ya está registrado.";
+    $mensaje = "El correo ya está registrado.";
 } else {
     $hash = password_hash($pass, PASSWORD_DEFAULT);
 
@@ -32,6 +32,7 @@ if ($result->num_rows > 0) {
 <head>
   <meta charset="UTF-8">
   <title>Registro - ToDo</title>
+  <link rel="stylesheet" href="../css/register.css">
 </head>
 <body>
   <h2>Registro</h2>

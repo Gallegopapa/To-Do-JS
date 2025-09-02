@@ -1,23 +1,35 @@
 <?php
 require "config.php";
 
+session_start(); // Asegúrate de iniciar la sesión si no está en config.php
+
 $mensaje = "";
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST["email"]);
     $pass  = $_POST["password"];
 
-    $stmt = $pdo->prepare("SELECT id, name, password_hash FROM users WHERE email = ?");
-    $stmt->execute([$email]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Consulta para obtener el usuario con ese email
+    $stmt = $conn->prepare("SELECT id, name, password_hash FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($user && password_verify($pass, $user["password_hash"])) {
-        $_SESSION["user_id"] = $user["id"];
-        $_SESSION["user_name"] = $user["name"];
-        header("Location: dashboard.php");
-        exit;
+    // Verificar si se encontró el usuario
+    if ($user = $result->fetch_assoc()) {
+        if (password_verify($pass, $user["password_hash"])) {
+            $_SESSION["user_id"] = $user["id"];
+            $_SESSION["user_name"] = $user["name"];
+            header("Location: inicio.php"); // Cambia esto a la página que desees
+            exit;
+        } else {
+            $mensaje = "Contraseña incorrecta.";
+        }
     } else {
-        $mensaje = "❌ Email o contraseña incorrectos.";
+        $mensaje = "El correo no está registrado.";
     }
+
+    $stmt->close();
 }
 ?>
 <!DOCTYPE html>
@@ -25,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
   <meta charset="UTF-8">
   <title>Login - ToDo</title>
+  <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
   <h2>Iniciar Sesión</h2>
@@ -38,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <button type="submit">Entrar</button>
   </form>
 
-  <p><?= $mensaje ?></p>
+  <p style="color:red;"><?= $mensaje ?></p>
   <p>¿No tienes cuenta? <a href="register.php">Regístrate</a></p>
 </body>
 </html>
