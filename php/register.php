@@ -9,23 +9,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($name && $email && $pass) {
         // Validar email duplicado
-        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
-        $stmt->execute([$email]);
+$stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
 
-        if ($stmt->rowCount() > 0) {
-            $mensaje = "⚠️ El correo ya está registrado.";
-        } else {
-            $hash = password_hash($pass, PASSWORD_DEFAULT);
+if ($result->num_rows > 0) {
+    $mensaje = "⚠️ El correo ya está registrado.";
+} else {
+    $hash = password_hash($pass, PASSWORD_DEFAULT);
 
-            $stmt = $pdo->prepare("INSERT INTO users (name, email, password_hash) VALUES (?,?,?)");
-            $stmt->execute([$name, $email, $hash]);
+    $stmt = $conn->prepare("INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $name, $email, $hash);
+    $stmt->execute();
 
-            $mensaje = "✅ Registro exitoso. Ahora puedes <a href='login.php'>iniciar sesión</a>";
-        }
-    } else {
-        $mensaje = "⚠️ Completa todos los campos.";
-    }
+    $mensaje = "Registro exitoso. Ahora puedes <a href='login.php'>iniciar sesión</a>";
 }
+  }}
 ?>
 <!DOCTYPE html>
 <html lang="es">
