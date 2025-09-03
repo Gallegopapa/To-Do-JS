@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $pass  = $_POST["password"];
 
     if ($name && $email && $pass) {
-        // Validar email duplicado
+        //esto valida correo duplicado
 $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
@@ -23,7 +23,7 @@ if ($result->num_rows > 0) {
     $stmt->bind_param("sss", $name, $email, $hash);
     $stmt->execute();
 
-    $mensaje = "Registro exitoso. Ahora puedes <a href='login.php'>iniciar sesión</a>";
+    $mensaje = "Registro exitoso. Ahora puedes <a href='login.php'>iniciar sesion</a>";
 }
   }}
 ?>
