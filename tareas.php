@@ -27,7 +27,7 @@ function listarSubtareas($conn, $parent_id, $nivel=1) {
     while($s = $result->fetch_assoc()) {
         echo "<div class='subtarea' style='margin-left:".($nivel*20)."px'>";
         echo "↳ <b>{$s['title']}</b> <small>({$s['status']})</small>";
-        echo " <a href='editar.php?id={$s['id']}'>Eliminar</a>";
+        echo " <a href='editar.php?id={$s['id']}'>✏️</a>";
         echo " <a href='eliminar.php?id={$s['id']}' onclick=\"return confirm('¿Seguro que deseas eliminar esta tarea?')\"></a>";
         echo "</div>";
         listarSubtareas($conn, $s['id'], $nivel+1);
