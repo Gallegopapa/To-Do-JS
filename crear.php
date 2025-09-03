@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
 }
 
-// Obtener tareas existentes para asignar subtareas
 $tareas = $conn->query("SELECT id, title FROM tasks WHERE parent_task_id IS NULL");
 ?>
 <!DOCTYPE html>
@@ -22,10 +21,10 @@ $tareas = $conn->query("SELECT id, title FROM tasks WHERE parent_task_id IS NULL
 <head>
     <meta charset="UTF-8">
     <title>Nueva Tarea</title>
-    <link rel="stylesheet" href="../css/inicio.css" />
+    <link rel="stylesheet" href="css/inicio.css" />
 </head>
 <body>
-<h2>➕ Crear Nueva Tarea</h2>
+<h2>Crear Nueva Tarea</h2>
 <form method="POST">
     <label>Título:</label><br>
     <input type="text" name="title" required><br><br>
@@ -39,7 +38,7 @@ $tareas = $conn->query("SELECT id, title FROM tasks WHERE parent_task_id IS NULL
 
     <label>Subtarea de:</label><br>
     <select name="parent_task_id">
-        <option value="">-- Ninguna (Tarea principal) --</option>
+        <option value="">Ninguna (Tarea principal)</option>
         <?php while($t = $tareas->fetch_assoc()): ?>
             <option value="<?= $t['id'] ?>"><?= $t['title'] ?></option>
         <?php endwhile; ?>

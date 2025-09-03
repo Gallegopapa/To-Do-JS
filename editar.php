@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/inicio.css" />
 </head>
 <body>
-<h2>✏️ Editar Tarea</h2>
+<h2>Editar Tarea</h2>
 <form method="POST">
     <label>Título:</label><br>
     <input type="text" name="title" value="<?= $tarea['title'] ?>" required><br><br>
