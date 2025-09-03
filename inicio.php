@@ -17,7 +17,7 @@
           <h1>GESTOR TAREAS</h1>
         </div>
         <nav class="menu">
-          <a href="#">Ver Tareas</a>
+          <a href="tareas.php">Ver Tareas</a>
           <a href="#">Gestionar Tareas</a>
         </nav>
       </div>
