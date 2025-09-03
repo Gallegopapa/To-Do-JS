@@ -27,7 +27,7 @@ $user_name = $_SESSION["user_name"];
           <h1>GESTOR TAREAS</h1>
         </div>
         <nav class="menu">
-          <a href="#">Ver Tareas</a>
+          <a href="tareas.php">Ver Tareas</a>
           <a href="#">Gestionar Tareas</a>
           <a href="logout.php">Cerrar sesión</a>
         </nav>

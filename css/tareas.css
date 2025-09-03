@@ -1,0 +1,208 @@
+/* ===========================
+   Variables globales
+=========================== */
+:root {
+  --color-bg: #f4f6f9;
+  --color-header: #2c3e50;
+  --color-header-text: #fff;
+  --color-accent: #3498db;
+  --color-accent-hover: #2980b9;
+  --color-danger: #e74c3c;
+  --color-danger-hover: #c0392b;
+  --color-text: #333;
+  --color-subtask: #7f8c8d;
+
+  --radius: 8px;
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --transition: 0.3s ease;
+}
+
+/* ===========================
+   Reset básico
+=========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* ===========================
+   Header
+=========================== */
+.header {
+  background: var(--color-header);
+  color: var(--color-header-text);
+  padding: 15px 0;
+  box-shadow: var(--shadow);
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+.header .logo h1 {
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+}
+
+.header .menu a {
+  color: var(--color-header-text);
+  text-decoration: none;
+  margin-left: 20px;
+  transition: var(--transition);
+}
+
+.header .menu a:hover {
+  color: var(--color-accent);
+}
+
+/* ===========================
+   Contenido principal
+=========================== */
+.contenido {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.contenido h2 {
+  margin-bottom: 15px;
+  color: var(--color-header);
+}
+
+/* ===========================
+   Lista de tareas
+=========================== */
+.tarea {
+  background: #ecf0f1;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-radius: var(--radius);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tarea small {
+  color: var(--color-subtask);
+  font-style: italic;
+}
+
+.tarea a {
+  margin-left: 10px;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.tarea a[href*="editar"] {
+  color: var(--color-accent);
+}
+
+.tarea a[href*="editar"]:hover {
+  color: var(--color-accent-hover);
+}
+
+.tarea a[href*="eliminar"] {
+  color: var(--color-danger);
+}
+
+.tarea a[href*="eliminar"]:hover {
+  color: var(--color-danger-hover);
+}
+
+/* ===========================
+   Subtareas
+=========================== */
+.subtarea {
+  background: #f9f9f9;
+  padding: 10px;
+  margin: 5px 0;
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+}
+
+/* ===========================
+   Formulario
+=========================== */
+form {
+  margin-top: 20px;
+}
+
+form label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-header);
+}
+
+form input[type="text"],
+form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+form input[type="text"]:focus,
+form select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 4px rgba(52, 152, 219, 0.5);
+}
+
+button[type="submit"] {
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  font-size: 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+button[type="submit"]:hover {
+  background: var(--color-accent-hover);
+}
+
+/* ===========================
+   Responsivo
+=========================== */
+@media (max-width: 600px) {
+  .header .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header .menu {
+    margin-top: 10px;
+  }
+
+  .tarea {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tarea a {
+    margin-top: 5px;
+  }
+}
