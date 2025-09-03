@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Editar Tarea</title>
-    <link rel="stylesheet" href="../css/inicio.css" />
+    <link rel="stylesheet" href="css/inicio.css" />
 </head>
 <body>
 <h2>✏️ Editar Tarea</h2>

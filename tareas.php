@@ -11,6 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         VALUES ('$title', '$status', $parent, 1, NOW())";
 
     $conn->query($sql);
+
+    // Redirigir para evitar resubmisión del formulario al recargar
+    header("Location: tareas.php");
+    exit;
 }
 
 // Obtener tareas raíz
@@ -36,7 +40,7 @@ function listarSubtareas($conn, $parent_id, $nivel=1) {
 <head>
     <meta charset="UTF-8" />
     <title>GESTOR DE TAREAS</title>
-    <link rel="stylesheet" href="../css/tareas.css" />
+    <link rel="stylesheet" href="css/tareas.css" />
 </head>
 <body>
 <header class="header">
@@ -59,7 +63,7 @@ function listarSubtareas($conn, $parent_id, $nivel=1) {
         <div class="tarea">
             <b><?= $t['title'] ?></b> <small>(<?= $t['status'] ?>)</small>
             <a href="editar.php?id=<?= $t['id'] ?>">✏️</a>
-            <a href="eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')"><img src="../img/material-symbols--close-rounded.svg" alt=""></a>
+            <a href="eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')"><img src="img/material-symbols--close-rounded.svg" alt=""></a>
         </div>
         <?php listarSubtareas($conn, $t['id']); ?>
     <?php endwhile; ?>
@@ -71,6 +75,7 @@ function listarSubtareas($conn, $parent_id, $nivel=1) {
         <input type="text" name="title" required><br><br>
 
         <label>Estado:</label><br>
+        
         <select name="status">
             <option value="pendiente">Pendiente</option>
             <option value="en progreso">En progreso</option>
@@ -87,6 +92,25 @@ function listarSubtareas($conn, $parent_id, $nivel=1) {
                 <option value="<?= $p['id'] ?>"><?= $p['title'] ?></option>
             <?php endwhile; ?>
         </select><br><br>
+        <form action="subir.php" method="POST" enctype="multipart/form-data">
+            <input type="file" name="archivo" id="archivo" style="display:none" required>
+            <button type="button" onclick="document.getElementById('archivo').click()">Seleccionar archivo</button>
+            <span id="nombreArchivo"></span>
+            <br><br>
+        </form>
+        <script>
+        //esto muestra el nombre del archivo
+        const inputArchivo = document.getElementById('archivo');
+        const nombreArchivo = document.getElementById('nombreArchivo');
+
+        inputArchivo.addEventListener('change', () => {
+            if (inputArchivo.files.length > 0) {
+            nombreArchivo.textContent = "Archivo seleccionado: " + inputArchivo.files[0].name;
+            } else {
+            nombreArchivo.textContent = "";
+            }
+        });
+        </script>
 
         <button type="submit">Guardar</button>
     </form>

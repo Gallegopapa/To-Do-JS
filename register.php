@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="../css/register.css">
+  <link rel="stylesheet" href="css/register.css">
   <title>Registro - ToDo</title>
 </head>
 <body>
