@@ -91,12 +91,14 @@ function listarSubtareas($conn, $parent_id, $nivel=1) {
                 <option value="<?= $p['id'] ?>"><?= $p['title'] ?></option>
             <?php endwhile; ?>
         </select><br><br>
-        <form action="subir.php" method="POST" enctype="multipart/form-data">
-            <input type="file" name="archivo" id="archivo" style="display:none" required>
-            <button type="button" onclick="document.getElementById('archivo').click()">Seleccionar archivo</button>
-            <span id="nombreArchivo"></span>
-            <br><br>
-        </form>
+        <form method="POST" enctype="multipart/form-data">
+    // ...campos...
+    <input type="file" name="archivo" id="archivo" style="display:none">
+    <button type="button" onclick="document.getElementById('archivo').click()">Seleccionar archivo</button>
+    <span id="nombreArchivo"></span>
+    <br><br>
+    <button type="submit">Guardar</button>
+</form>
         <script>
         //esto muestra el nombre del archivo
         const inputArchivo = document.getElementById('archivo');
@@ -111,7 +113,6 @@ function listarSubtareas($conn, $parent_id, $nivel=1) {
         });
         </script>
 
-        <button type="submit">Guardar</button>
     </form>
 </main>
 </body>
