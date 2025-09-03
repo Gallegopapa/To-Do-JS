@@ -36,8 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/login.css">
   <title>Login - ToDo</title>
-  <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
   <h2>Iniciar Sesión</h2>

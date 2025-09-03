@@ -10,7 +10,7 @@ $conn = mysqli_connect($host, $user, $pass, $dbname);
 
 // Verificar conexión
 if (!$conn) {
-    die("❌ Error de conexión: " . mysqli_connect_error());
+    die("Error de conexión: " . mysqli_connect_error());
 } else {
 }
 ?>
