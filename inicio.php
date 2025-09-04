@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("config.php");
 
 //lleva al login si el usuario no ha iniciado sesion
 if (!isset($_SESSION["user_id"])) {
@@ -8,6 +9,20 @@ if (!isset($_SESSION["user_id"])) {
 }
 
 $user_name = $_SESSION["user_name"];
+
+// consulta tareas principales
+$sql = "SELECT * FROM tasks WHERE parent_task_id IS NULL ORDER BY created_at DESC";
+$tareas = $conn->query($sql);
+
+// función para mostrar subtareas (recursiva)
+function listarSubtareasMenu($conn, $parent_id, $nivel=1) {
+    $sql = "SELECT * FROM tasks WHERE parent_task_id = $parent_id ORDER BY created_at ASC";
+    $result = $conn->query($sql);
+    while($s = $result->fetch_assoc()) {
+        echo "<li style='margin-left:".($nivel*15)."px'>↳ {$s['title']}</li>";
+        listarSubtareasMenu($conn, $s['id'], $nivel+1);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +54,15 @@ $user_name = $_SESSION["user_name"];
         <div class="cont-menu">
             <nav>
             <h1 class="bienvenida">Bienvenido a tu gestor de tareas, <?= htmlspecialchars($user_name) ?> </h1>
+                <h2 style="margin-top:15px; color: #fff;">Tus Tareas</h2>
+                <ul>
+                <?php while($t = $tareas->fetch_assoc()): ?>
+                  <li>
+                    <?= htmlspecialchars($t['title']) ?><?= $t['status'] ?>
+                    <?php listarSubtareasMenu($conn, $t['id']); ?>
+                  </li>
+                <?php endwhile; ?>
+                </ul>
             </nav>
             <label for="btn-menu">✘</label>
         </div>
