@@ -19,12 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/editar.css"/>
     <title>Editar Tarea</title>
-    <link rel="stylesheet" href="css/inicio.css" />
 </head>
 <body>
-<h2>Editar Tarea</h2>
-<form method="POST">
+    <form method="POST">
+    <h2>Editar Tarea</h2>
     <label>Título:</label><br>
     <input type="text" name="title" value="<?= $tarea['title'] ?>" required><br><br>
 
