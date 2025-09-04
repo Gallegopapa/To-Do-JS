@@ -14,7 +14,7 @@ $user_name = $_SESSION["user_name"];
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="./css/inicio.css" />
+    <link rel="stylesheet" href="css/inicio.css" />
     <title>Gestor De Tareas</title>
   </head>
   <body>
@@ -29,7 +29,7 @@ $user_name = $_SESSION["user_name"];
         <nav class="menu">
           <a href="tareas.php">Ver Tareas</a>
           <a href="#">Gestionar Tareas</a>
-          <a href="logout.php">Cerrar sesión</a>
+          <a class="cerrar_sesion" href="logout.php">Cerrar sesión</a>
         </nav>
       </div>
     </header>

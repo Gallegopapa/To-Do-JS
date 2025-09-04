@@ -32,6 +32,9 @@ h1.bienvenida{
   top: 0;
   background-color: black;
 }
+.container .menu a.cerrar_sesion:hover{
+  color: red;
+}
 .container {
   width: 90%;
   max-width: 1200px;
