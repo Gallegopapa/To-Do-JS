@@ -4,23 +4,25 @@ include("config.php");
 
 //lleva al login si el usuario no ha iniciado sesion
 if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
-    exit;
+  header("Location: login.php");
+  exit;
 }
 
+$user_id = $_SESSION["user_id"];
 $user_name = $_SESSION["user_name"];
 
 // consulta tareas principales
-$sql = "SELECT * FROM tasks WHERE parent_task_id IS NULL ORDER BY created_at DESC";
+$sql = "SELECT * FROM tasks WHERE parent_task_id IS NULL AND creator_id = $user_id ORDER BY created_at DESC";
 $tareas = $conn->query($sql);
 
+
 // función para mostrar subtareas (recursiva)
-function listarSubtareasMenu($conn, $parent_id, $nivel=1) {
-    $sql = "SELECT * FROM tasks WHERE parent_task_id = $parent_id ORDER BY created_at ASC";
+function listarSubtareasMenu($conn, $parent_id, $nivel=1, $user_id) {
+     $sql = "SELECT * FROM tasks WHERE parent_task_id = $parent_id AND creator_id = $user_id ORDER BY created_at ASC";
     $result = $conn->query($sql);
     while($s = $result->fetch_assoc()) {
-        echo "<li style='margin-left:".($nivel*15)."px'>↳ {$s['title']}</li>";
-        listarSubtareasMenu($conn, $s['id'], $nivel+1);
+        echo "<li style='margin-left:".($nivel*15)."px'>↳ ".htmlspecialchars($s['title'])."</li>";
+        listarSubtareasMenu($conn, $s['id'], $nivel+1, $user_id); 
     }
 }
 ?>
@@ -42,7 +44,7 @@ function listarSubtareasMenu($conn, $parent_id, $nivel=1) {
           <h1>GESTOR TAREAS</h1>
         </div>
         <nav class="menu">
-          <a href="tareas.php">Ver Tareas</a>
+          <a href="tareas.php">Ver / Agregar Tareas</a>
           <a href="#">Gestionar Tareas</a>
           <a class="cerrar_sesion" href="logout.php">Cerrar sesión</a>
         </nav>
@@ -53,13 +55,15 @@ function listarSubtareasMenu($conn, $parent_id, $nivel=1) {
     <div class="container-menu">
         <div class="cont-menu">
             <nav>
-            <h1 class="bienvenida">Bienvenido a tu gestor de tareas, <?= htmlspecialchars($user_name) ?> </h1>
+            <h1 class="bienvenida">Bienvenid@ a tu gestor de tareas, <span class="user_name"><?= htmlspecialchars($user_name) ?></span></h1>
+
                 <h2 style="margin-top:15px; color: #fff;">Tus Tareas</h2>
+                <hr><br>
                 <ul>
                 <?php while($t = $tareas->fetch_assoc()): ?>
                   <li>
-                    <?= htmlspecialchars($t['title']) ?><?= $t['status'] ?>
-                    <?php listarSubtareasMenu($conn, $t['id']); ?>
+                    <?= htmlspecialchars($t['title']) ?> (<?= htmlspecialchars($t['status']) ?>)
+                    <?php listarSubtareasMenu($conn, $t['id'], 1, $user_id); ?>
                   </li>
                 <?php endwhile; ?>
                 </ul>

@@ -100,9 +100,14 @@ h1.bienvenida{
   max-width: 250px;
   background: #1c1c1c;
   height: 100vh;
+  color:white;
   position: relative;
   transition: all 500ms ease;
   transform: translateX(-100%);
+}
+.user_name{
+  color: #bceeff;
+  font-weight: bold;
 }
 #btn-menu:checked ~ .container-menu .cont-menu {
   transform: translateX(0%);
