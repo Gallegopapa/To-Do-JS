@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
     $status = $_POST['status'];
 
-    $sql = "UPDATE tasks SET title='$title', status='$status' WHERE id=$id";
+    $sql = "UPDATE tasks SET title='$title', description_md='$description', status='$status' WHERE id=$id";
     $conn->query($sql);
 
     header("Location: index.php");
@@ -27,6 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h2>Editar Tarea</h2>
     <label>Título:</label><br>
     <input type="text" name="title" value="<?= $tarea['title'] ?>" required><br><br>
+
+     <label>Descripción:</label><br>
+    <textarea name="description" required><?= $tarea['description'] ?></textarea><br><br>
 
     <label>Estado:</label><br>
     <select name="status">

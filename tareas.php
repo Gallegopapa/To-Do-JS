@@ -9,8 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $status = $_POST['status'];
     $parent = !empty($_POST['parent_task_id']) ? $_POST['parent_task_id'] : "NULL";
 
-    $sql = "INSERT INTO tasks (title, status, parent_task_id, creator_id, created_at) 
-        VALUES ('$title', '$status', $parent, $user_id, NOW())";
+    $sql = "INSERT INTO tasks (title, description_md, status, parent_task_id, creator_id, created_at) 
+        VALUES ('$title', '$description', '$status', $parent, $user_id, NOW())";
 
     $conn->query($sql);
 
@@ -85,6 +85,9 @@ function listarSubtareas($conn, $parent_id, $nivel=1, $user_id) {
             <option value="completada">Completada</option>
         </select><br><br>
 
+        <label>Descripción:</label><br>
+        <input type="text" name="title" required><br><br>
+
         <label>Subtarea de:</label><br>
         <select name="parent_task_id">
             <option value="">Ninguna (Tarea principal)</option>
@@ -96,7 +99,6 @@ function listarSubtareas($conn, $parent_id, $nivel=1, $user_id) {
             <?php endwhile; ?>
         </select><br><br>
         <form method="POST" enctype="multipart/form-data">
-    // ...campos...
     <input type="file" name="archivo" id="archivo" style="display:none">
     <button type="button" onclick="document.getElementById('archivo').click()">Seleccionar archivo</button>
     <span id="nombreArchivo"></span>
