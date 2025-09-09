@@ -1,24 +1,24 @@
 /* ===========================
-   Variables globales
+   Variables
 =========================== */
 :root {
-  --color-bg: #f4f6f9;
+  --color-bg: #eef2f7;
   --color-header: #2c3e50;
   --color-header-text: #fff;
-  --color-accent: #3498db;
-  --color-accent-hover: #2980b9;
+  --color-accent: #27ae60;
+  --color-accent-hover: #1e8449;
   --color-danger: #e74c3c;
   --color-danger-hover: #c0392b;
-  --color-text: #333;
-  --color-subtask: #7f8c8d;
+  --color-card: #fff;
+  --color-text: #2d3436;
 
-  --radius: 8px;
-  --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --radius: 10px;
+  --shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
   --transition: 0.3s ease;
 }
 
 /* ===========================
-   Reset básico
+   Reset
 =========================== */
 * {
   margin: 0;
@@ -31,13 +31,11 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
-
-  /* 🔽 Esto baja el contenido para que no se pegue al header fijo */
-  padding-top: 120px;
+  padding-top: 100px; /* espacio para header fijo */
 }
 
 /* ===========================
-   Header
+   Header (igual al anterior)
 =========================== */
 .header {
   width: 100%;
@@ -45,9 +43,7 @@ body {
   position: fixed;
   top: 0;
   background-color: black;
-}
-.container .menu a.cerrar_sesion:hover{
-  color: red;
+  z-index: 100;
 }
 .container {
   width: 90%;
@@ -77,7 +73,6 @@ body {
 .container .menu a {
   display: inline-block;
   padding: 15px;
-  line-height: normal;
   text-decoration: none;
   color: #fff;
   transition: all 0.3s ease;
@@ -89,48 +84,64 @@ body {
   border-bottom: 2px solid #c7c7c7;
   padding-bottom: 5px;
 }
-.contenido {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-.contenido h2 {
-  margin-bottom: 15px;
-  color: var(--color-header);
+.container .menu a.cerrar_sesion:hover {
+  color: red;
 }
 
 /* ===========================
-   Lista de tareas
+   Contenido
+=========================== */
+.contenido {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.contenido h2 {
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  color: var(--color-header);
+  text-align: center;
+}
+
+/* ===========================
+   Tarjetas de tareas
 =========================== */
 .tarea {
-  background: #ecf0f1;
-  padding: 12px 15px;
-  margin-bottom: 10px;
+  background: var(--color-card);
+  padding: 15px 20px;
+  margin-bottom: 15px;
   border-radius: var(--radius);
+  box-shadow: var(--shadow);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: transform var(--transition);
+}
+
+.tarea:hover {
+  transform: translateY(-3px);
+}
+
+.tarea b {
+  font-size: 1.1rem;
+  color: var(--color-header);
 }
 
 .tarea small {
-  color: var(--color-subtask);
-  font-style: italic;
+  color: #7f8c8d;
+  margin-left: 8px;
 }
 
 .tarea a {
-  margin-left: 10px;
+  margin-left: 12px;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .tarea a[href*="editar"] {
   color: var(--color-accent);
 }
-
 .tarea a[href*="editar"]:hover {
   color: var(--color-accent-hover);
 }
@@ -138,7 +149,6 @@ body {
 .tarea a[href*="eliminar"] {
   color: var(--color-danger);
 }
-
 .tarea a[href*="eliminar"]:hover {
   color: var(--color-danger-hover);
 }
@@ -147,80 +157,24 @@ body {
    Subtareas
 =========================== */
 .subtarea {
-  background: #f9f9f9;
-  padding: 10px;
-  margin: 5px 0;
-  border-left: 3px solid var(--color-accent);
+  background: #fafafa;
+  padding: 12px 15px;
+  margin: 8px 0;
+  border-left: 4px solid var(--color-accent);
   border-radius: var(--radius);
   font-size: 0.95rem;
+  box-shadow: var(--shadow);
 }
 
 /* ===========================
-   Formulario
+   Responsive
 =========================== */
-form {
-  margin-top: 20px;
-}
-
-form label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 6px;
-  color: var(--color-header);
-}
-
-form input[type="text"],
-form select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: var(--radius);
-  font-size: 1rem;
-  transition: var(--transition);
-}
-
-form input[type="text"]:focus,
-form select:focus {
-  outline: none;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 4px rgba(52, 152, 219, 0.5);
-}
-
-button[type="submit"] {
-  background: var(--color-accent);
-  color: #fff;
-  border: none;
-  padding: 10px 18px;
-  font-size: 1rem;
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-button[type="submit"]:hover {
-  background: var(--color-accent-hover);
-}
-
-/* ===========================
-   Responsivo
-=========================== */
-@media (max-width: 600px) {
-  .header .container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .header .menu {
-    margin-top: 10px;
-  }
-
+@media (max-width: 700px) {
   .tarea {
     flex-direction: column;
     align-items: flex-start;
   }
-
   .tarea a {
-    margin-top: 5px;
+    margin-top: 8px;
   }
 }
