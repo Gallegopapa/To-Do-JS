@@ -1,4 +1,6 @@
 <?php
+session_start();
+$user_id = $_SESSION['user_id'];
 include("config.php");
 
 //esto inserta tarea
@@ -8,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $parent = !empty($_POST['parent_task_id']) ? $_POST['parent_task_id'] : "NULL";
 
     $sql = "INSERT INTO tasks (title, status, parent_task_id, creator_id, created_at) 
-        VALUES ('$title', '$status', $parent, 1, NOW())";
+        VALUES ('$title', '$status', $parent, $user_id, NOW())";
 
     $conn->query($sql);
 
@@ -17,12 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 //esto obtiene las tareas pincipales
-$sql = "SELECT * FROM tasks WHERE parent_task_id IS NULL ORDER BY created_at DESC";
+$sql = "SELECT * FROM tasks WHERE parent_task_id IS NULL AND creator_id = $user_id ORDER BY created_at DESC";
 $tareas = $conn->query($sql);
 
+
 //funcion para subtareas
-function listarSubtareas($conn, $parent_id, $nivel=1) {
-    $sql = "SELECT * FROM tasks WHERE parent_task_id = $parent_id ORDER BY created_at ASC";
+function listarSubtareas($conn, $parent_id, $nivel=1, $user_id) {
+    $sql = "SELECT * FROM tasks WHERE parent_task_id = $parent_id AND creator_id = $user_id ORDER BY created_at ASC";
     $result = $conn->query($sql);
     while($s = $result->fetch_assoc()) {
         echo "<div class='subtarea' style='margin-left:".($nivel*20)."px'>";
@@ -30,7 +33,7 @@ function listarSubtareas($conn, $parent_id, $nivel=1) {
         echo " <a href='editar.php?id={$s['id']}'>✏️</a>";
         echo " <a href='eliminar.php?id={$s['id']}' onclick=\"return confirm('¿Seguro que deseas eliminar esta tarea?')\"></a>";
         echo "</div>";
-        listarSubtareas($conn, $s['id'], $nivel+1);
+        listarSubtareas($conn, $s['id'], $nivel+1, $user_id);
     }
 }
 ?>
@@ -45,13 +48,14 @@ function listarSubtareas($conn, $parent_id, $nivel=1) {
 <header class="header">
     <div class="container">
         <div class="btn-menu">
-            <label for="btn-menu">☰</label>
+            <!-- <label for="btn-menu">☰</label> -->
         </div>
         <div class="logo">
             <h1>GESTOR TAREAS</h1>
         </div>
         <nav class="menu">
             <a href="index.php">Ver / Agregar Tareas</a>
+            <a href="inicio.php">Volver al inicio</a>
         </nav>
     </div>
 </header>
@@ -64,7 +68,7 @@ function listarSubtareas($conn, $parent_id, $nivel=1) {
             <a href="editar.php?id=<?= $t['id'] ?>">✏️</a>
             <a href="eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')"><img src="img/material-symbols--close-rounded.svg" alt=""></a>
         </div>
-        <?php listarSubtareas($conn, $t['id']); ?>
+        <?php listarSubtareas($conn, $t['id'], 1, $user_id); ?>
     <?php endwhile; ?>
 
     <hr>
