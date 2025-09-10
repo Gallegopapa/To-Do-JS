@@ -40,7 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="completada" <?= $tarea['status']=="completada"?"selected":"" ?>>Completada</option>
         </select><br><br>
 
-        <button type="submit">Actualizar</button>
+        <button type="button" onclick="window.location.href='vista_tareas.php'">Actualizar</button>
+
     </form>
 </body>
 </html>

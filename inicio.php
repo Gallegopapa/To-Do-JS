@@ -63,7 +63,7 @@ function listarSubtareasMenu($conn, $parent_id, $nivel=1, $user_id) {
                 <ul>
                 <?php while($t = $tareas->fetch_assoc()): ?>
                   <li>
-                    <?= htmlspecialchars($t['title']) ?> (<?= htmlspecialchars($t['status']) ?>)
+                    - <?= htmlspecialchars($t['title']) ?> - <?= htmlspecialchars($t['status']) ?>
                     <?php listarSubtareasMenu($conn, $t['id'], 1, $user_id); ?>
                   </li>
                 <?php endwhile; ?>
