@@ -13,7 +13,7 @@ function listarSubtareas($conn, $parent_id, $nivel=1, $user_id) {
     $result = $conn->query($sql);
     while($s = $result->fetch_assoc()) {
         echo "<div class='subtarea' style='margin-left:".($nivel*20)."px'>";
-        echo "↳ <b>{$s['title']}</b> <small>({$s['status']})</small>";
+        echo "↳ <b>{$s['title']}</b> <small>{$s['status']}</small>";
         echo " <a href='editar.php?id={$s['id']}'>✏️</a>";
         echo " <a href='eliminar.php?id={$s['id']}' onclick=\"return confirm('¿Seguro que deseas eliminar esta tarea?')\">❌</a>";
         echo "</div>";
@@ -49,7 +49,7 @@ function listarSubtareas($conn, $parent_id, $nivel=1, $user_id) {
     <h2>Lista de Tareas</h2>
     <?php while($t = $tareas->fetch_assoc()): ?>
         <div class="tarea">
-            <b><?= $t['title'] ?></b> <small>(<?= $t['status'] ?>)</small>
+            <b><?= $t['title'] ?></b> <small><?= $t['status'] ?></small>
             <a href="editar.php?id=<?= $t['id'] ?>">✏️</a>
             <a href="eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')">❌</a>
         </div>
