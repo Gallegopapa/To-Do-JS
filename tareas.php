@@ -55,9 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="completada">Completada</option>
         </select>
 
-        <label>Descripción:</label>
-        <input type="text" name="title" required>
-
         <label>Subtarea de:</label>
         <select name="parent_task_id">
             <option value="">Ninguna (Tarea principal)</option>

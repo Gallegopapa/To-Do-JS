@@ -6,9 +6,12 @@ $tarea = $conn->query("SELECT * FROM tasks WHERE id=$id")->fetch_assoc();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
+    $description = isset($_POST['description']) ? $_POST['description'] : ''; // ✅ evitar warning
     $status = $_POST['status'];
 
-    $sql = "UPDATE tasks SET title='$title', description_md='$description', status='$status' WHERE id=$id";
+    $sql = "UPDATE tasks 
+            SET title='$title', description_md='$description', status='$status' 
+            WHERE id=$id";
     $conn->query($sql);
 
     header("Location: index.php");
@@ -24,21 +27,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <form method="POST">
-    <h2>Editar Tarea</h2>
-    <label>Título:</label><br>
-    <input type="text" name="title" value="<?= $tarea['title'] ?>" required><br><br>
+        <h2>Editar Tarea</h2>
+        
+        <label>Título:</label><br>
+        <input type="text" name="title" value="<?= $tarea['title'] ?>" required><br><br>
 
-     <label>Descripción:</label><br>
-    <textarea name="description" required><?= $tarea['description'] ?></textarea><br><br>
 
-    <label>Estado:</label><br>
-    <select name="status">
-        <option value="pendiente" <?= $tarea['status']=="pendiente"?"selected":"" ?>>Pendiente</option>
-        <option value="en progreso" <?= $tarea['status']=="en progreso"?"selected":"" ?>>En progreso</option>
-        <option value="completada" <?= $tarea['status']=="completada"?"selected":"" ?>>Completada</option>
-    </select><br><br>
+        <label>Estado:</label><br>
+        <select name="status">
+            <option value="pendiente" <?= $tarea['status']=="pendiente"?"selected":"" ?>>Pendiente</option>
+            <option value="en progreso" <?= $tarea['status']=="en progreso"?"selected":"" ?>>En progreso</option>
+            <option value="completada" <?= $tarea['status']=="completada"?"selected":"" ?>>Completada</option>
+        </select><br><br>
 
-    <button type="submit">Actualizar</button>
-</form>
+        <button type="submit">Actualizar</button>
+    </form>
 </body>
 </html>
