@@ -44,7 +44,8 @@ function listarSubtareasMenu($conn, $parent_id, $nivel=1, $user_id) {
           <h1>GESTOR TAREAS</h1>
         </div>
         <nav class="menu">
-          <a href="tareas.php">Ver / Agregar Tareas</a>
+          <a href="vista_tareas.php">Ver Tareas</a>
+          <a href="tareas.php">Agregar Tareas</a>
           <a href="#">Gestionar Proyectos</a>
           <a class="cerrar_sesion" href="logout.php">Cerrar sesión</a>
         </nav>

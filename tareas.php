@@ -50,9 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <label>Estado:</label>
         <select name="status">
-            <option value="pendiente">Pendiente</option>
-            <option value="en_progreso">En progreso</option>
-            <option value="completada">Completada</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="En_progreso">En progreso</option>
+            <option value="Completada">Completada</option>
         </select>
 
         <label>Subtarea de:</label>
