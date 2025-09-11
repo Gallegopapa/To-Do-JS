@@ -14,7 +14,7 @@ body {
   position: fixed;
   width: 100%;
   height: 100vh;
-  background-color: #bceeff;
+  background-color: #FFFFFF;
   opacity: 60%;
   z-index: -1;
   top: 0;
@@ -141,6 +141,7 @@ input{
   margin-left: 20px;
   border-radius: 10px;
   margin: 10px;
+  margin-left: 0;
 }
 .cont-menu nav a:hover {
   border-left: 5px solid #c7c7c7;
@@ -158,4 +159,182 @@ input{
 p{
   color: white;
   margin-left: 20px;
+}
+/* ===================== */
+/* Estilos para buscador */
+/* ===================== */
+.filtro-form {
+  background: #1c1c1c;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 10px;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.filtro-form label {
+  font-size: 14px;
+  margin-right: 5px;
+  font-weight: bold;
+  color: #bceeff;
+}
+
+.filtro-form input[type="text"],
+.filtro-form input[type="date"],
+.filtro-form select {
+  background: #2c2c2c;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.filtro-form input::placeholder {
+  color: #aaa;
+}
+
+.filtro-form button {
+  background: #bceeff;
+  border: none;
+  padding: 6px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: black;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.filtro-form button:hover {
+  background: #fff;
+  color: #000;
+}
+
+.filtro-form a {
+  font-size: 14px;
+  color: red;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.filtro-form a:hover {
+  text-decoration: underline;
+}
+
+/* ======================= */
+/* Estilos para lista de tareas */
+/* ======================= */
+.tareas-lista {
+  margin: 20px 10px;
+  list-style: none;
+  padding-left: 0;
+}
+
+.tareas-lista li {
+  background: #2c2c2c;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  color: #fff;
+  border-left: 5px solid #bceeff;
+  transition: 0.3s;
+}
+
+.tareas-lista li:hover {
+  background: #3a3a3a;
+}
+
+.tareas-lista li span {
+  font-size: 13px;
+  color: #bceeff;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+/* ======================= */
+/* NUEVO: Tareas en inicio.php */
+/* ======================= */
+.contenido {
+  margin-top: 110px; /* deja espacio debajo del header */
+  padding: 20px;
+  min-height: calc(100vh - 110px);
+  color: white;
+}
+
+.tarea-item {
+  background: #2c2c2c;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  color: #fff;
+  border-left: 5px solid #bceeff;
+  transition: 0.3s;
+}
+
+.tarea-item:hover {
+  background: #3a3a3a;
+}
+
+.tarea-item b {
+  font-size: 16px;
+  color: #fff;
+}
+
+.tarea-item small {
+  color: #bceeff;
+  font-weight: bold;
+  margin-left: 6px;
+}
+
+.tarea-item span {
+  font-size: 14px;
+  color: #ccc;
+  margin-right: 8px;
+}
+
+.tarea-item a {
+  margin-left: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #bceeff;
+}
+
+.tarea-item a:hover {
+  color: #fff;
+}
+
+.subtarea-item {
+  background: #1f1f1f;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 6px 0 6px 20px;
+  border-left: 4px solid #bceeff;
+  transition: 0.3s;
+}
+
+.subtarea-item:hover {
+  background: #2a2a2a;
+}
+
+.subtarea-item b {
+  font-size: 14px;
+  color: #fff;
+}
+
+.subtarea-item small {
+  color: #bceeff;
+  font-weight: bold;
+  margin-left: 6px;
+}
+
+.subtarea-item span {
+  font-size: 13px;
+  color: #aaa;
+}
+h2 {
+  color: black;
+  margin-bottom: 20px;
 }

@@ -9,9 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $description = $_POST['description'];
     $status = $_POST['status'];
     $parent = !empty($_POST['parent_task_id']) ? $_POST['parent_task_id'] : "NULL";
+    $etiquetas = $_POST['etiquetas'];
+    $prioridad = $_POST['prioridad'];
+    $start_date = !empty($_POST['start_date']) ? "'".$_POST['start_date']."'" : "NULL";
+    $due_date = !empty($_POST['due_date']) ? "'".$_POST['due_date']."'" : "NULL";
 
-    $sql = "INSERT INTO tasks (title, description_md, status, parent_task_id, creator_id, created_at) 
-            VALUES ('$title', '$description', '$status', $parent, $user_id, NOW())";
+    $sql = "INSERT INTO tasks (title, description_md, status, parent_task_id, creator_id, etiquetas, prioridad, start_date, due_date, created_at) 
+            VALUES ('$title', '$description', '$status', $parent, $user_id, '$etiquetas', '$prioridad', $start_date, $due_date, NOW())";
     $conn->query($sql);
 
     header("Location: vista_tareas.php"); // redirige a la nueva vista
@@ -65,6 +69,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <option value="<?= $p['id'] ?>"><?= $p['title'] ?></option>
             <?php endwhile; ?>
         </select>
+
+        <label>Etiquetas (separadas por coma):</label>
+        <input type="text" name="etiquetas" placeholder="Ej: trabajo, urgente">
+
+        <label>Prioridad:</label>
+        <select name="prioridad">
+            <option value="Alta">Alta</option>
+            <option value="Media" selected>Media</option>
+            <option value="Baja">Baja</option>
+        </select>
+
+        <label>Fecha de inicio:</label>
+        <input type="date" name="start_date">
+
+        <label>Fecha de vencimiento:</label>
+        <input type="date" name="due_date">
 
         <label>Archivo adjunto:</label><br>
         <input type="file" name="archivo" id="archivo" style="display:none">

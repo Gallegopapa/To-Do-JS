@@ -13,7 +13,10 @@ function listarSubtareas($conn, $parent_id, $nivel=1, $user_id) {
     $result = $conn->query($sql);
     while($s = $result->fetch_assoc()) {
         echo "<div class='subtarea' style='margin-left:".($nivel*20)."px'>";
-        echo "↳ <b>{$s['title']}</b> <small>{$s['status']}</small>";
+        echo "↳ <b>{$s['title']}</b> <small>[{$s['status']}]</small><br>";
+        echo "<span> Prioridad: {$s['prioridad']}</span> | ";
+        echo "<span> {$s['etiquetas']}</span> | ";
+        echo "<span> Inicio: ".($s['start_date'] ?: '-')." / Vence: ".($s['due_date'] ?: '-')."</span>";
         echo " <a href='editar.php?id={$s['id']}'>✏️</a>";
         echo " <a href='eliminar.php?id={$s['id']}' onclick=\"return confirm('¿Seguro que deseas eliminar esta tarea?')\">❌</a>";
         echo "</div>";
@@ -39,8 +42,8 @@ function listarSubtareas($conn, $parent_id, $nivel=1, $user_id) {
         </div>
         <nav class="menu">
             <a href="tareas.php">Agregar Tareas</a>
-        <a href="vista_tareas.php">Ver Tareas</a>
-        <a class="cerrar_sesion" href="logout.php">Cerrar sesión</a>
+            <a href="vista_tareas.php">Ver Tareas</a>
+            <a class="cerrar_sesion" href="logout.php">Cerrar sesión</a>
         </nav>
     </div>
 </header>
@@ -50,6 +53,11 @@ function listarSubtareas($conn, $parent_id, $nivel=1, $user_id) {
     <?php while($t = $tareas->fetch_assoc()): ?>
         <div class="tarea">
             <b><?= $t['title'] ?></b> <small><?= $t['status'] ?></small>
+            <br>
+            <span> Prioridad: <?= $t['prioridad'] ?></span> | 
+            <span> <?= $t['etiquetas'] ?></span> | 
+            <span> Inicio: <?= $t['start_date'] ?: '-' ?> / Vence: <?= $t['due_date'] ?: '-' ?></span>
+            <br>
             <a href="editar.php?id=<?= $t['id'] ?>">✏️</a>
             <a href="eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')">❌</a>
         </div>
