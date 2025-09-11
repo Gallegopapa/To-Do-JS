@@ -4,32 +4,45 @@ require "config.php";
 $mensaje = "";
 
 if (isset($_GET["token"])) {
-    $token = $_GET["token"];
+    $token = trim($_GET["token"]);
+
+    // DEBUG temporal
+    echo "<p>DEBUG: Token recibido = $token</p>";
 
     // buscar usuario con ese token válido
-    $stmt = $conn->prepare("SELECT id, reset_expiration FROM users WHERE reset_token=?");
+    $stmt = $conn->prepare("SELECT id, reset_expiration, reset_token FROM users WHERE reset_token=?");
     $stmt->bind_param("s", $token);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($user = $result->fetch_assoc()) {
-        if (strtotime($user["reset_expiration"]) > time()) {
+
+        // DEBUG temporal
+        echo "<p>DEBUG: Token en DB = " . $user['reset_token'] . "</p>";
+
+        if (!empty($user["reset_expiration"]) && strtotime($user["reset_expiration"]) > time()) {
+            
             // si el usuario envió nueva contraseña
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $newpass = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-                $stmt = $conn->prepare("UPDATE users SET password_hash=?, reset_token=NULL, reset_expiration=NULL WHERE id=?");
+                $stmt = $conn->prepare("UPDATE users 
+                                        SET password_hash=?, reset_token=NULL, reset_expiration=NULL 
+                                        WHERE id=?");
                 $stmt->bind_param("si", $newpass, $user["id"]);
                 $stmt->execute();
 
-                $mensaje = "Contraseña actualizada correctamente. <a href='login.php'>Inicia sesión</a>";
+                $mensaje = "✅ Contraseña actualizada correctamente. <a href='login.php'>Inicia sesión</a>";
             }
+
         } else {
-            $mensaje = "El enlace ha expirado.";
+            $mensaje = "❌ El enlace ha expirado.";
         }
     } else {
-        $mensaje = "Token inválido.";
+        $mensaje = "❌ Token inválido.";
     }
+} else {
+    $mensaje = "❌ No se recibió token.";
 }
 ?>
 <!DOCTYPE html>

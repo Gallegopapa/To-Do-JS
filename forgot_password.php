@@ -1,34 +1,78 @@
 <?php
 require "config.php";
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
 $mensaje = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST["email"]);
 
-    // buscar usuario
-    $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($user = $result->fetch_assoc()) {
-        // generar token
-        $token = bin2hex(random_bytes(50));
-        $expira = date("Y-m-d H:i:s", strtotime("+1 hour"));
-
-        // guardar token en la DB
-        $stmt = $conn->prepare("UPDATE users SET reset_token=?, reset_expiration=? WHERE id=?");
-        $stmt->bind_param("ssi", $token, $expira, $user["id"]);
-        $stmt->execute();
-
-        // enviar correo con link (aquí puedes usar PHPMailer)
-        $link = "http://localhost/reset_password.php?token=$token";
-        mail($email, "Recupera tu contraseña", "Haz clic aquí para restablecer tu contraseña: $link");
-
-        $mensaje = "Se ha enviado un enlace a tu correo.";
+    // === Validación simple de email ===
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $mensaje = "❌ Ingresa un correo válido.";
     } else {
-        $mensaje = "No se encontró ese correo.";
+        $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($user = $result->fetch_assoc()) {
+            $token = bin2hex(random_bytes(50));
+            $expira = date("Y-m-d H:i:s", strtotime("+1 hour"));
+
+            $stmt = $conn->prepare("UPDATE users SET reset_token=?, reset_expiration=? WHERE id=?");
+            $stmt->bind_param("ssi", $token, $expira, $user["id"]);
+            $stmt->execute();
+
+            $link = "http://localhost/To-Do-JS/reset_password.php?token=$token";
+
+            // ===== CONFIGURACIÓN DE PHPMailer =====
+            $mail = new PHPMailer(true);
+
+            try {
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+
+                // ⚠️ Aquí tu correo y contraseña de aplicación
+                $mail->Username = 'simon.23051997@gmail.com';
+                $mail->Password = 'lnjquazbfeasiufv'; // 16 caracteres exactos
+
+                // Conexión TLS
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+
+                $mail->CharSet = "UTF-8";
+
+                $mail->setFrom('simon.23051997@gmail.com', 'Gestor de Tareas');
+                $mail->addAddress($email);
+
+                $mail->isHTML(true);
+                $mail->Subject = 'Recupera tu contraseña';
+                $mail->Body    = "Haz clic aquí para restablecer tu contraseña: 
+                    <br><br><a href='$link'>$link</a>
+                    <br><br>Este enlace expira en 1 hora.";
+
+                $mail->AltBody = "Haz clic en este enlace para restablecer tu contraseña: $link";
+
+                if ($mail->send()) {
+                    $mensaje = "✅ Se ha enviado un enlace a tu correo.";
+                } else {
+                    $mensaje = "❌ Error inesperado al enviar el correo.";
+                }
+
+            } catch (Exception $e) {
+                $mensaje = "❌ Error al enviar: {$mail->ErrorInfo}";
+            }
+        } else {
+            $mensaje = "⚠️ El correo ingresado no está registrado.";
+        }
     }
 }
 ?>
@@ -45,6 +89,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <input type="email" name="email" required><br><br>
     <button type="submit">Enviar enlace</button>
   </form>
-  <p style="color:green;"><?= $mensaje ?></p>
+  <p><?= $mensaje ?></p>
 </body>
 </html>
