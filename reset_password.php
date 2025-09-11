@@ -1,0 +1,53 @@
+<?php
+require "config.php";
+
+$mensaje = "";
+
+if (isset($_GET["token"])) {
+    $token = $_GET["token"];
+
+    // buscar usuario con ese token válido
+    $stmt = $conn->prepare("SELECT id, reset_expiration FROM users WHERE reset_token=?");
+    $stmt->bind_param("s", $token);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($user = $result->fetch_assoc()) {
+        if (strtotime($user["reset_expiration"]) > time()) {
+            // si el usuario envió nueva contraseña
+            if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                $newpass = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+                $stmt = $conn->prepare("UPDATE users SET password_hash=?, reset_token=NULL, reset_expiration=NULL WHERE id=?");
+                $stmt->bind_param("si", $newpass, $user["id"]);
+                $stmt->execute();
+
+                $mensaje = "Contraseña actualizada correctamente. <a href='login.php'>Inicia sesión</a>";
+            }
+        } else {
+            $mensaje = "El enlace ha expirado.";
+        }
+    } else {
+        $mensaje = "Token inválido.";
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Restablecer contraseña</title>
+</head>
+<body>
+  <h2>Restablecer contraseña</h2>
+  <?php if (!empty($mensaje)): ?>
+    <p><?= $mensaje ?></p>
+  <?php else: ?>
+    <form method="POST">
+      <label>Nueva contraseña:</label><br>
+      <input type="password" name="password" required><br><br>
+      <button type="submit">Cambiar contraseña</button>
+    </form>
+  <?php endif; ?>
+</body>
+</html>

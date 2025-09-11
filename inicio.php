@@ -121,7 +121,6 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
     </div>
   </div>
 
-  <!-- 📋 Aquí se muestran las tareas filtradas (centro azul) -->
   <main class="contenido" style="padding:20px; color:white;">
       <h2>Resultados de tus Tareas</h2>
       <hr><br>
@@ -129,7 +128,7 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
         <?php while($t = $tareas->fetch_assoc()): ?>
             <li class="tarea-item">
                 <b><?= htmlspecialchars($t['title']) ?></b> 
-                <small>[<?= htmlspecialchars($t['status']) ?>]</small><br>
+                <small><?= htmlspecialchars($t['status']) ?></small><br>
                 <span>Prioridad:</span> <?= htmlspecialchars($t['prioridad']) ?> | 
                 <span><?= htmlspecialchars($t['etiquetas']) ?></span> | 
                 <span>Inicio: <?= $t['start_date'] ?: '-' ?> / Vence: <?= $t['due_date'] ?: '-' ?></span>

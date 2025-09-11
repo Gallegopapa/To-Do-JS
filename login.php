@@ -48,6 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <input type="password" name="password" required><br><br>
 
     <button type="submit">Entrar</button>
+
+    <p><a href="forgot_password.php">¿Has olvidado tu contraseña?</a></p>
+
   </form>
 
   <p style="color:red;"><?= $mensaje ?></p>
