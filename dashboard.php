@@ -1,9 +1,12 @@
 <?php
 require "config.php";
+require "auth.php"; //esto son funciones de permisos y sesión
 
-if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
-    exit;
+requiereLogin(); //esto asegura de que este logueado
+
+//solo admin puede entrar "rol_id = 1"
+if ($_SESSION['usuario']['rol_id'] != 1) {
+    die("Acceso denegado: Solo administradores");
 }
 ?>
 <!DOCTYPE html>
