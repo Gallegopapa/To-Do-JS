@@ -49,6 +49,7 @@ if (isset($_GET["token"])) {
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/reset_password.css">
   <title>Restablecer contraseña</title>
 </head>
 <body>
