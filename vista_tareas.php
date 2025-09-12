@@ -37,9 +37,7 @@ function listarSubtareas($conn, $parent_id, $nivel=1, $user_id) {
         <div class="btn-menu">
         <label for="btn-menu">☰</label>
         </div>
-        <div class="logo">
-        <h1>GESTOR TAREAS</h1>
-        </div>
+        <div class="logo"><a href="inicio.php"><h1>GESTOR TAREAS</h1></a></div>
         <nav class="menu">
             <a href="tareas.php">Agregar Tareas</a>
             <a href="vista_tareas.php">Ver Tareas</a>

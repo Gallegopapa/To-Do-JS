@@ -35,9 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="btn-menu">
         <label for="btn-menu">☰</label>
         </div>
-        <div class="logo">
-        <h1>GESTOR TAREAS</h1>
-        </div>
+        <div class="logo"><a href="inicio.php"><h1>GESTOR TAREAS</h1></a></div>
         <nav class="menu">
         <a href="vista_tareas.php">Ver Tareas</a>
         <a href="tareas.php">Agregar Tareas</a>
