@@ -184,7 +184,18 @@ p{
   color: white;
   margin-left: 20px;
 }
-
+button.limpiar {
+  background: red;
+  border: none;
+  padding: 6px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: black;
+  font-weight: bold;
+}
+button.limpiar:hover {
+  background: darkred; /* rojo más oscuro */
+}
 /*buscador*/
 .filtro-form {
   background: #1c1c1c;
@@ -220,7 +231,7 @@ p{
   color: #aaa;
 }
 
-.filtro-form button {
+button.buscar{
   background: #bceeff;
   border: none;
   padding: 6px 15px;
@@ -231,7 +242,7 @@ p{
   transition: 0.3s;
 }
 
-.filtro-form button:hover {
+button.buscar:hover {
   background: #fff;
   color: #000;
 }

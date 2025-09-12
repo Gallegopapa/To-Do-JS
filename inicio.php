@@ -2,7 +2,7 @@
 session_start();
 include("config.php");
 
-// lleva al login si no hay sesión
+// lleva al login si no hay sesion
 if (!isset($_SESSION["user_id"])) {
   header("Location: login.php");
   exit;
@@ -34,11 +34,11 @@ if (!empty($_GET["fecha_vencimiento"])) {
     $where .= " AND due_date <= '$fv'";
 }
 
-// consulta tareas principales filtradas
+//consulta tareas principales filtradas
 $sql = "SELECT * FROM tasks WHERE $where ORDER BY created_at DESC";
 $tareas = $conn->query($sql);
 
-// función para mostrar subtareas (recursiva, ahora con <li>)
+//funcion para mostrar subtareas (recursiva, ahora con <li>)
 function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
     $sql = "SELECT * FROM tasks WHERE parent_task_id = $parent_id AND creator_id = $user_id ORDER BY created_at ASC";
     $result = $conn->query($sql);
@@ -86,7 +86,7 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
           <span class="user_name"><?= htmlspecialchars($user_name) ?></span>
         </h1>
 
-        <!-- 🔍 Formulario de filtros -->
+        <!-- formulario de filtros -->
         <form method="GET" class="filtro-form">
           <p>Etiqueta:</p>
           <input type="text" name="etiqueta" value="<?= htmlspecialchars($_GET['etiqueta'] ?? '') ?>" placeholder="Trabajo, estudio...">
@@ -106,15 +106,19 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
             <option value="en progreso" <?= (($_GET['estado'] ?? '')=="en progreso")?'selected':''; ?>>En Progreso</option>
             <option value="completada" <?= (($_GET['estado'] ?? '')=="completada")?'selected':''; ?>>Completada</option>
           </select>
-  <br>
+          <br>
           <p>Inicio:</p>
           <input type="date" name="fecha_inicio" value="<?= htmlspecialchars($_GET['fecha_inicio'] ?? '') ?>">
 
           <p>Vence:</p>
           <input type="date" name="fecha_vencimiento" value="<?= htmlspecialchars($_GET['fecha_vencimiento'] ?? '') ?>">
 
-          <button type="submit">Buscar</button>
-          <a href="inicio.php">Limpiar</a>
+          <button class="buscar" type="submit">Buscar</button>
+
+          <button class="limpiar" onclick="window.location.href='inicio.php'">
+            Limpiar
+          </button>
+
         </form>
       </nav>
       <label for="btn-menu">✘</label>
