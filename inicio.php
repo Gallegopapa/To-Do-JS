@@ -48,8 +48,8 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
         echo "<span>Prioridad:</span> ".htmlspecialchars($s['prioridad'])." | ";
         echo "<span>".htmlspecialchars($s['etiquetas'])."</span> | ";
         echo "<span>Inicio: ".($s['start_date'] ?: '-')." / Vence: ".($s['due_date'] ?: '-')."</span>";
-        echo " <a href='editar.php?id={$s['id']}'>✏️</a>";
-        echo " <a href='eliminar.php?id={$s['id']}' onclick=\"return confirm('¿Seguro que deseas eliminar esta tarea?')\">❌</a>";
+        echo " <a href='editar.php?id={$s['id']}'><img src='svg/lucide--edit(1).svg'></a>";
+        echo " <a href='eliminar.php?id={$s['id']}' onclick=\"return confirm('¿Seguro que deseas eliminar esta tarea?')\"><img src='svg/material-symbols--close (1).svg'></a>";
         echo "</li>";
         listarSubtareasVista($conn, $s['id'], $nivel+1, $user_id);
     }
@@ -133,8 +133,8 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
                 <span><?= htmlspecialchars($t['etiquetas']) ?></span> | 
                 <span>Inicio: <?= $t['start_date'] ?: '-' ?> / Vence: <?= $t['due_date'] ?: '-' ?></span>
                 <br>
-                <a href="editar.php?id=<?= $t['id'] ?>">✏️</a>
-                <a href="eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')">❌</a>
+                <a href="editar.php?id=<?= $t['id'] ?>"><img src="svg/lucide--edit(1).svg" alt=""></a>
+            <a href="eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')"><img src="svg/material-symbols--close (1).svg" alt=""></a>
             </li>
             <?php listarSubtareasVista($conn, $t['id'], 1, $user_id); ?>
         <?php endwhile; ?>
