@@ -4,12 +4,14 @@
   box-sizing: border-box;
   font-family: "Montserrat Alternates", sans-serif;
 }
+
 body {
   background-attachment: fixed;
   background-size: cover; 
   background-position: center; 
   background-repeat: no-repeat;
 }
+
 .capa {
   position: fixed;
   width: 100%;
@@ -20,11 +22,13 @@ body {
   top: 0;
   left: 0;
 }
+
 h1.bienvenida{
   color: red;
   font-size: 15px;
 }
-/*Estilos para el encabezado*/
+
+/*header*/
 .header {
   width: 100%;
   height: 100px;
@@ -32,34 +36,41 @@ h1.bienvenida{
   top: 0;
   background-color: black;
 }
+
 .container .menu a.cerrar_sesion:hover{
   color: red;
 }
+
 .container {
   width: 90%;
   max-width: 1200px;
   margin: auto;
 }
+
 .container .btn-menu,
 .logo {
   float: left;
   line-height: 100px;
 }
+
 .container .btn-menu label {
   color: #fff;
   font-size: 25px;
   cursor: pointer;
 }
+
 .logo h1 {
   color: #fff;
   font-weight: 400;
   font-size: 22px;
   margin-left: 6px;
 }
+
 .container .menu {
   float: right;
   line-height: 100px;
 }
+
 .container .menu a {
   display: inline-block;
   padding: 15px;
@@ -71,15 +82,17 @@ h1.bienvenida{
   font-size: 15px;
   margin-right: 5px;
 }
+
 .container .menu a:hover {
   border-bottom: 2px solid #c7c7c7;
   padding-bottom: 5px;
 }
 
-/*Menù lateral*/
+/*menu lateral*/
 #btn-menu {
   display: none;
 }
+
 .container-menu {
   position: absolute;
   background: rgba(0, 0, 0, 0.5);
@@ -91,10 +104,12 @@ h1.bienvenida{
   opacity: 0;
   visibility: hidden;
 }
+
 #btn-menu:checked ~ .container-menu {
   opacity: 1;
   visibility: visible;
 }
+
 .cont-menu {
   width: 100%;
   max-width: 250px;
@@ -105,16 +120,20 @@ h1.bienvenida{
   transition: all 500ms ease;
   transform: translateX(-100%);
 }
+
 .user_name{
   color: #bceeff;
   font-weight: bold;
 }
+
 #btn-menu:checked ~ .container-menu .cont-menu {
   transform: translateX(0%);
 }
+
 .cont-menu nav {
   transform: translateY(15%);
 }
+
 .cont-menu nav h1 {
   display: block;
   text-decoration: none;
@@ -124,6 +143,7 @@ h1.bienvenida{
   border-left: 5px solid transparent;
   transition: all 400ms ease;
 }
+
 .btn-iniciar{
   background-color: rgb(233, 233, 233);
   border-radius: 10px;
@@ -131,10 +151,12 @@ h1.bienvenida{
   width: 100px;
   margin-left: 60px;
 }
+
 .btn-iniciar:hover{
   cursor: pointer;
   background-color: gray;
 }
+
 input{
   height: 27px;
   width: 200px;
@@ -143,10 +165,12 @@ input{
   margin: 10px;
   margin-left: 0;
 }
+
 .cont-menu nav a:hover {
   border-left: 5px solid #c7c7c7;
   background: #1f1f1f;
 }
+
 .cont-menu label {
   position: absolute;
   right: 5px;
@@ -160,9 +184,8 @@ p{
   color: white;
   margin-left: 20px;
 }
-/* ===================== */
-/* Estilos para buscador */
-/* ===================== */
+
+/*buscador*/
 .filtro-form {
   background: #1c1c1c;
   padding: 15px;
@@ -224,12 +247,12 @@ p{
   text-decoration: underline;
 }
 
-/* Estilos para lista de tareas */
-/* ======================= */
+/*lista de tareas*/
 .tareas-lista {
   margin: 20px 10px;
   list-style: none;
-  padding-left: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .tareas-lista li {
@@ -245,6 +268,7 @@ p{
   border-left: 5px solid #bceeff;
   transition: 0.3s;
 }
+
 .tarea-item:hover {
   transform: translateY(-3px);
 }
@@ -260,11 +284,16 @@ p{
   margin-left: 5px;
 } 
 
+.tarea-item b {
+  font-size: 1.1rem;
+  color: var(--color-header);
+}
 
+.tarea-item small {
+  color: #000;
+  margin-left: 12px;
+}
 
-/* ======================= */
-/* NUEVO: Tareas en inicio.php */
-/* ======================= */
 .contenido {
   margin-top: 110px; 
   padding: 20px;
@@ -281,25 +310,7 @@ p{
   color: #000;
 }
 
-/* Lista de tareas */
-.tareas-lista {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-
-.tarea-item b {
-  font-size: 1.1rem;
-  color: var(--color-header);
-}
-
-.tarea-item small {
-  color: #000;
-  margin-left: 12px;
-}
-
-/* Enlaces de acción */
+/*enlaces*/
 .tarea-item a {
   margin-left: 12px;
   text-decoration: none;
@@ -320,7 +331,7 @@ p{
   color: var(--color-danger-hover);
 }
 
-/* Subtareas */
+/*subtareas*/
 .subtarea {
   background: #fafafa;
   padding: 12px 15px;
@@ -330,90 +341,3 @@ p{
   font-size: 0.95rem;
   box-shadow: var(--shadow);
 }
-
-/* Responsive */
-@media (max-width: 700px) {
-  .tarea-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .tarea-item a {
-    margin-top: 8px;
-  }
-}
-
-/*
-.tarea-item {
-  background: #2c2c2c;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  color: #fff;
-  border-left: 5px solid #bceeff;
-  transition: 0.3s;
-}
-
-.tarea-item:hover {
-  background: #3a3a3a;
-}
-
-.tarea-item b {
-  font-size: 16px;
-  color: #fff;
-}
-
-.tarea-item small {
-  color: #bceeff;
-  font-weight: bold;
-  margin-left: 6px;
-}
-
-.tarea-item span {
-  font-size: 14px;
-  color: #ccc;
-  margin-right: 8px;
-}
-
-.tarea-item a {
-  margin-left: 8px;
-  text-decoration: none;
-  font-size: 14px;
-  color: #bceeff;
-}
-
-.tarea-item a:hover {
-  color: #fff;
-}
-
-.subtarea-item {
-  background: #1f1f1f;
-  padding: 10px;
-  border-radius: 8px;
-  margin: 6px 0 6px 20px;
-  border-left: 4px solid #bceeff;
-  transition: 0.3s;
-}
-
-.subtarea-item:hover {
-  background: #2a2a2a;
-}
-
-.subtarea-item b {
-  font-size: 14px;
-  color: #fff;
-}
-
-.subtarea-item small {
-  color: #bceeff;
-  font-weight: bold;
-  margin-left: 6px;
-}
-
-.subtarea-item span {
-  font-size: 13px;
-  color: #aaa;
-}
-h2 {
-  color: black;
-  margin-bottom: 20px;
-} */
