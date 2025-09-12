@@ -16,7 +16,9 @@
   --shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
   --transition: 0.3s ease;
 }
-
+a{
+  text-decoration: none;
+}
 /* ===========================
    Reset
 =========================== */

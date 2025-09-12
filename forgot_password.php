@@ -80,15 +80,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/forgot_password.css">
   <title>Recuperar contraseña</title>
 </head>
 <body>
-  <h2>Recuperar contraseña</h2>
-  <form method="POST">
-    <label>Email:</label><br>
-    <input type="email" name="email" required><br><br>
-    <button type="submit">Enviar enlace</button>
-  </form>
-  <p><?= $mensaje ?></p>
+  <div class="card">
+    <h2>Recuperar contraseña</h2>
+    <form method="POST">
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+      </div>
+      <button type="submit">Enviar enlace</button>
+    </form>
+    <p><?= $mensaje ?></p>
+  </div>
 </body>
 </html>

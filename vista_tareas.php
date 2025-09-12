@@ -13,7 +13,7 @@ function listarSubtareas($conn, $parent_id, $nivel=1, $user_id) {
     $result = $conn->query($sql);
     while($s = $result->fetch_assoc()) {
         echo "<div class='subtarea' style='margin-left:".($nivel*20)."px'>";
-        echo "↳ <b>{$s['title']}</b> <small>[{$s['status']}]</small><br>";
+        echo "↳ <b>{$s['title']}</b> <small>-{$s['status']}</small><br>";
         echo "<span> Prioridad: {$s['prioridad']}</span> | ";
         echo "<span> {$s['etiquetas']}</span> | ";
         echo "<span> Inicio: ".($s['start_date'] ?: '-')." / Vence: ".($s['due_date'] ?: '-')."</span>";
