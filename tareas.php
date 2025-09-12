@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </select>
 
         <label>Etiquetas (separadas por coma):</label>
-        <input type="text" name="etiquetas" placeholder="Ej: trabajo, urgente">
+        <input type="text" name="etiquetas">
 
         <label>Prioridad:</label>
         <select name="prioridad">
