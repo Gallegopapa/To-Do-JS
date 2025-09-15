@@ -6,8 +6,8 @@ $mensaje = "";
 if (isset($_GET["token"])) {
     $token = trim($_GET["token"]);
 
-    // DEBUG temporal
-    echo "<p>DEBUG: Token recibido = $token</p>";
+    // // DEBUG temporal
+    // echo "<p>DEBUG: Token recibido = $token</p>";
 
     // buscar usuario con ese token válido
     $stmt = $conn->prepare("SELECT id, reset_expiration, reset_token FROM users WHERE reset_token=?");
@@ -17,8 +17,8 @@ if (isset($_GET["token"])) {
 
     if ($user = $result->fetch_assoc()) {
 
-        // DEBUG temporal
-        echo "<p>DEBUG: Token en DB = " . $user['reset_token'] . "</p>";
+        // // DEBUG temporal
+        // echo "<p>DEBUG: Token en DB = " . $user['reset_token'] . "</p>";
 
         if (!empty($user["reset_expiration"]) && strtotime($user["reset_expiration"]) > time()) {
             
@@ -53,15 +53,19 @@ if (isset($_GET["token"])) {
   <title>Restablecer contraseña</title>
 </head>
 <body>
-  <h2>Restablecer contraseña</h2>
-  <?php if (!empty($mensaje)): ?>
-    <p><?= $mensaje ?></p>
-  <?php else: ?>
-    <form method="POST">
-      <label>Nueva contraseña:</label><br>
-      <input type="password" name="password" required><br><br>
-      <button type="submit">Cambiar contraseña</button>
-    </form>
-  <?php endif; ?>
+  <div class="container">
+    <h2>Restablecer contraseña</h2>
+    <?php if (!empty($mensaje)): ?>
+      <p class="<?= strpos($mensaje, '✅') !== false ? 'success' : 'error' ?>">
+        <?= $mensaje ?>
+      </p>
+    <?php else: ?>
+      <form method="POST">
+        <label for="password">Nueva contraseña:</label>
+        <input type="password" name="password" id="password" required>
+        <button type="submit">Cambiar contraseña</button>
+      </form>
+    <?php endif; ?>
+  </div>
 </body>
 </html>
