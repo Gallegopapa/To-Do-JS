@@ -2,7 +2,7 @@
 $host = "localhost";
 $dbname = "to-do-js"; 
 $user = "root";       
-$pass = "123456";           
+$pass = "";           
 
 $conn = mysqli_connect($host, $user, $pass, $dbname);
 

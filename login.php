@@ -8,18 +8,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST["email"]);
     $pass  = $_POST["password"];
 
-    //esto hace al consulta para obtener el usuario con ese correo
-    $stmt = $conn->prepare("SELECT id, name, password_hash FROM users WHERE email = ?");
+    // consulta para obtener el usuario con ese correo
+    $stmt = $conn->prepare("SELECT id, name, password_hash, role FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    //esto verifica si se encontró el usuario
+    // verifica si se encontró el usuario
     if ($user = $result->fetch_assoc()) {
         if (password_verify($pass, $user["password_hash"])) {
+            // guardar datos en la sesión
             $_SESSION["user_id"] = $user["id"];
             $_SESSION["user_name"] = $user["name"];
-            header("Location: inicio.php");
+            $_SESSION["user_role"] = $user["role"];
+
+            // redirigir según rol
+            if ($user["role"] === "admin") {
+                header("Location: Admin/inico_Admin.php");
+            } else {
+                header("Location: inicio.php");
+            }
             exit;
         } else {
             $mensaje = "Contraseña incorrecta";
@@ -50,7 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <button type="submit">Entrar</button>
 
     <p><a href="forgot_password.php">¿Has olvidado tu contraseña?</a></p>
-
   </form>
 
   <p style="color:red;"><?= $mensaje ?></p>
