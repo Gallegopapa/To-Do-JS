@@ -1,0 +1,59 @@
+.perfil-container {
+    max-width: 500px;
+    margin: 50px auto;
+    background: #222;
+    padding: 30px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+}
+
+.perfil-container img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    margin-bottom: 15px;
+}
+
+.perfil-container input[type="file"] {
+    margin: 10px 0;
+    color: white;
+}
+
+.perfil-container button {
+    padding: 8px 20px;
+    background-color: #3b82f6;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.perfil-container a {
+    color: #ccc;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.mensaje {
+    margin-top: 15px;
+    color: lightgreen;
+}
+.btn-volver {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-volver:hover {
+  background-color: #2563eb;
+}

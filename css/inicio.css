@@ -87,6 +87,47 @@ h1.bienvenida{
   border-bottom: 2px solid #c7c7c7;
   padding-bottom: 5px;
 }
+/*perfil*/
+.perfil-link {
+  display: inline-block;
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.perfil-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  vertical-align: middle;
+  transition: transform 0.2s ease;
+}
+
+.perfil-icon:hover {
+  transform: scale(1.1);
+}
+
+.perfil-navbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 15px;
+}
+
+.perfil-icon:hover {
+  transform: scale(1.1);
+}
+
+.perfil-nombre-navbar {
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  white-space: nowrap;
+}
 
 /*menu lateral*/
 #btn-menu {

@@ -3,7 +3,6 @@ session_start();
 $user_id = $_SESSION['user_id'];
 include("config.php");
 
-// Insertar tarea
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
     $description = $_POST['description'];
@@ -14,11 +13,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $start_date = !empty($_POST['start_date']) ? "'".$_POST['start_date']."'" : "NULL";
     $due_date = !empty($_POST['due_date']) ? "'".$_POST['due_date']."'" : "NULL";
 
-    $sql = "INSERT INTO tasks (title, description_md, status, parent_task_id, creator_id, etiquetas, prioridad, start_date, due_date, created_at) 
-            VALUES ('$title', '$description', '$status', $parent, $user_id, '$etiquetas', '$prioridad', $start_date, $due_date, NOW())";
+    $archivo_nombre = "";
+    if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] == UPLOAD_ERR_OK) {
+        $archivo_tmp = $_FILES['archivo']['tmp_name'];
+        $archivo_nombre = basename($_FILES['archivo']['name']);
+        $carpeta_destino = "uploads/";
+
+        if (!file_exists($carpeta_destino)) {
+            mkdir($carpeta_destino, 0777, true);
+        }
+
+        move_uploaded_file($archivo_tmp, $carpeta_destino . $archivo_nombre);
+    }
+
+    $sql = "INSERT INTO tasks (title, description_md, status, parent_task_id, creator_id, etiquetas, prioridad, start_date, due_date, archivo, created_at) 
+            VALUES ('$title', '$description', '$status', $parent, $user_id, '$etiquetas', '$prioridad', $start_date, $due_date, '$archivo_nombre', NOW())";
     $conn->query($sql);
 
-    header("Location: vista_tareas.php"); // redirige a la nueva vista
+    header("Location: vista_tareas.php");
     exit;
 }
 ?>
@@ -92,9 +104,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <br><br>
         <button type="submit">Guardar</button>
     </form>
-
     <script>
-    // Mostrar nombre del archivo
+
     const inputArchivo = document.getElementById('archivo');
     const nombreArchivo = document.getElementById('nombreArchivo');
     inputArchivo.addEventListener('change', () => {

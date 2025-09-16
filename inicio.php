@@ -11,6 +11,18 @@ if (!isset($_SESSION["user_id"])) {
 $user_id = $_SESSION["user_id"];
 $user_name = $_SESSION["user_name"];
 
+// obtener imagen de perfil
+$sql_profile = "SELECT profile_pic FROM users WHERE id = $user_id";
+$result_profile = $conn->query($sql_profile);
+$profile_pic = "img/default_profile.png"; // valor por defecto
+
+if ($result_profile && $result_profile->num_rows > 0) {
+    $row_profile = $result_profile->fetch_assoc();
+    if (!empty($row_profile['profile_pic'])) {
+        $profile_pic = $row_profile['profile_pic'];
+    }
+}
+
 // filtros
 $where = "parent_task_id IS NULL AND creator_id = $user_id";
 if (!empty($_GET["etiqueta"])) {
@@ -71,7 +83,11 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
         <a href="vista_tareas.php">Ver Tareas</a>
         <a href="tareas.php">Agregar Tareas</a>
         <a href="#">Gestionar Proyectos</a>
-        <a class="cerrar_sesion" href="logout.php">Cerrar sesión</a>
+        <a href="perfil.php" class="perfil-link">
+          <img src="<?= htmlspecialchars($profile_pic) ?>" alt="Perfil" class="perfil-icon">
+          <span class="perfil-nombre-navbar"><?= htmlspecialchars($user_name) ?></span>
+          <a class="cerrar_sesion" href="logout.php">Cerrar sesión</a>
+
       </nav>
     </div>
   </header>
@@ -138,11 +154,9 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
                 <span>Inicio: <?= $t['start_date'] ?: '-' ?> / Vence: <?= $t['due_date'] ?: '-' ?></span>
                 <br>
                 <a href="editar.php?id=<?= $t['id'] ?>"><img src="svg/lucide--edit(1).svg" alt=""></a>
-            <a href="eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')"><img src="svg/material-symbols--close (1).svg" alt=""></a>
+                <a href="eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')"><img src="svg/material-symbols--close (1).svg"
+  alt=""></a>
+                <?php listarSubtareasVista($conn, $t['id'], 1, $user_id); ?>
             </li>
-            <?php listarSubtareasVista($conn, $t['id'], 1, $user_id); ?>
         <?php endwhile; ?>
-      </ul>
-  </main>
-</body>
-</html>
+      </ul> 
