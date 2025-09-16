@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </select><br><br>
 
         <button type="button" onclick="window.location.href='vista_tareas.php'">Actualizar</button>
+        <a href="inicio.php" class="btn-volver">Volver a Inicio</a>
 
     </form>
 </body>
