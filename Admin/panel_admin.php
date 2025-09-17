@@ -1,0 +1,84 @@
+<?php
+session_start();
+include("../config.php");
+
+// validar que sea admin
+if (!isset($_SESSION["user_id"])) {
+    die("Acceso denegado. No hay sesión.");
+}
+
+// buscamos al usuario logueado
+$yo = $conn->query("SELECT role FROM users WHERE id=".(int)$_SESSION["user_id"])->fetch_assoc();
+if (!$yo || $yo["role"] !== "admin") {
+    die("Acceso restringido. Solo admins pueden entrar.");
+}
+
+// traer usuarios
+$usuarios = $conn->query("SELECT id, name FROM users ORDER BY name ASC");
+
+// si se selecciona un usuario
+$usuario = null;
+if (isset($_GET["usuario_id"])) {
+    $uid = (int)$_GET["usuario_id"];
+    $usuario = $conn->query("SELECT * FROM users WHERE id=$uid")->fetch_assoc();
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Admin</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <!-- Contenido -->
+  <div class="content">
+    <h1>Panel de Administración</h1>
+
+    <form method="get">
+      <label for="usuario_id">Seleccionar Usuario:</label>
+      <select name="usuario_id" id="usuario_id" onchange="this.form.submit()">
+        <option value="">-- Selecciona --</option>
+        <?php while ($u = $usuarios->fetch_assoc()): ?>
+          <option value="<?= $u['id'] ?>" <?= ($usuario && $usuario['id']==$u['id']) ? 'selected' : '' ?>>
+            <?= htmlspecialchars($u['name']) ?>
+          </option>
+        <?php endwhile; ?>
+      </select>
+    </form>
+
+    <?php if ($usuario): ?>
+      <div class="card">
+        <h2>Gestión de <?= htmlspecialchars($usuario["name"]) ?></h2>
+        <img src="<?= htmlspecialchars($usuario["profile_pic"]) ?>" alt="Avatar" class="avatar">
+
+        <form method="post" action="update_user.php">
+          <input type="hidden" name="id" value="<?= $usuario["id"] ?>">
+
+          <label>Nombre:</label>
+          <input type="text" name="name" value="<?= htmlspecialchars($usuario["name"]) ?>">
+
+          <label>Email:</label>
+          <input type="email" name="email" value="<?= htmlspecialchars($usuario["email"]) ?>">
+
+          <label>Rol:</label>
+          <select name="role">
+            <option value="user" <?= $usuario["role"]=="user" ? "selected" : "" ?>>Usuario</option>
+            <option value="moderator" <?= $usuario["role"]=="moderator" ? "selected" : "" ?>>Moderador</option>
+            <option value="admin" <?= $usuario["role"]=="admin" ? "selected" : "" ?>>Administrador</option>
+          </select>
+
+          <label>Estado:</label>
+          <select name="is_active">
+            <option value="1" <?= $usuario["is_active"]==1 ? "selected" : "" ?>>Activo</option>
+            <option value="0" <?= $usuario["is_active"]==0 ? "selected" : "" ?>>Inactivo</option>
+          </select>
+
+          <button type="submit" class="btn">Guardar cambios</button>
+        </form>
+      </div>
+    <?php endif; ?>
+  </div>
+</body>
+</html>

@@ -80,9 +80,9 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1) {
       <div class="btn-menu"><label for="btn-menu">☰</label></div>
       <div class="logo"><h1>ADMIN PANEL</h1></div>
       <nav class="menu">
-        <a href="inicio_Admin.php">Panel Admin</a>
-        <a href="../vista_tareas.php">Ver Tareas</a>
-        <a href="../tareas.php">Gestionar proyectos</a>
+        <a href="panel_admin.php">Panel Admin</a>
+        <a href="../_proyecto.php">Ver proyectos</a>
+        <a href="../crear_proyecto.php">Gestionar proyectos</a>
         <a href="../perfil.php" class="perfil-link">
           <img src="<?= htmlspecialchars($profile_pic) ?>" alt="Perfil" class="perfil-icon">
           <span class="perfil-nombre-navbar"><?= htmlspecialchars($user_name) ?></span>

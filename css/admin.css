@@ -1,0 +1,126 @@
+:root {
+  --bg-color: #f5f7fa;
+  --sidebar-bg: #2c3e50;
+  --card-bg: #fff;
+  --primary: #4a90e2;
+  --primary-hover: #357ab7;
+  --text-dark: #2c3e50;
+  --text-light: #95a5a6;
+  --radius: 12px;
+  --shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  background: var(--bg-color);
+  height: 100vh;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  width: 220px;
+  background: var(--sidebar-bg);
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #ecf0f1;
+}
+
+.sidebar a {
+  color: #ecf0f1;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: var(--radius);
+  transition: background 0.3s;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.sidebar a:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* --- Contenido --- */
+.content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+form label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+select, input {
+  width: 100%;
+  padding: 10px;
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* --- Tarjeta usuario --- */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 25px;
+  box-shadow: var(--shadow);
+  max-width: 450px;
+  margin-top: 20px;
+}
+
+.card h2 {
+  margin-bottom: 15px;
+  color: var(--text-dark);
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 15px 0;
+  border: 3px solid var(--primary);
+}
+
+/* --- Botón --- */
+.btn {
+  background: var(--primary);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 15px;
+  margin-top: 15px;
+  width: 100%;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+  transform: scale(1.02);
+}
