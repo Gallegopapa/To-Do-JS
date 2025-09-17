@@ -65,7 +65,7 @@ if (isset($_GET["usuario_id"])) {
   </div>
 
   <!-- CONTENIDO DEL PANEL -->
-  <main class="contenido" style="margin-top:120px;">
+  <main class="contenido_admin" style="margin-top:120px;">
     <h1>Panel de Administración</h1>
 
     <form method="get">
