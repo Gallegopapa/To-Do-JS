@@ -8,7 +8,7 @@ if (!isset($_SESSION["user_id"])) {
 }
 
 // buscamos al usuario logueado
-$yo = $conn->query("SELECT role FROM users WHERE id=".(int)$_SESSION["user_id"])->fetch_assoc();
+$yo = $conn->query("SELECT role, name, profile_pic FROM users WHERE id=".(int)$_SESSION["user_id"])->fetch_assoc();
 if (!$yo || $yo["role"] !== "admin") {
     die("Acceso restringido. Solo admins pueden entrar.");
 }
@@ -28,12 +28,44 @@ if (isset($_GET["usuario_id"])) {
 <head>
   <meta charset="UTF-8">
   <title>Panel Admin</title>
-  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/inicio.css">  <!-- header/menu -->
+  <link rel="stylesheet" href="../css/admin.css">   <!-- panel admin -->
 </head>
 <body>
+  <!-- HEADER igual que en inicio -->
+  <header class="header">
+    <div class="container">
+      <div class="btn-menu"><label for="btn-menu">☰</label></div>
+      <div class="logo"><h1>GESTOR TAREAS</h1></div>
+      <nav class="menu">
+        <a href="../inicio.php">Ver Tareas</a>
+        <a href="../tareas.php">Agregar Tareas</a>
+        <a href="../crear_proyecto.php">Gestionar Proyectos</a>
+        <a href="panel_admin.php">Panel Admin</a>
+        <a href="../perfil.php" class="perfil-link">
+          <img src="<?= htmlspecialchars($yo["profile_pic"]) ?>" alt="Perfil" class="perfil-icon">
+          <span class="perfil-nombre-navbar"><?= htmlspecialchars($yo["name"]) ?></span>
+        </a>
+        <a class="cerrar_sesion" href="../logout.php">Cerrar sesión</a>
+      </nav>
+    </div>
+  </header>
 
-  <!-- Contenido -->
-  <div class="content">
+  <div class="capa"></div>
+  <input type="checkbox" id="btn-menu" />
+  <div class="container-menu">
+    <div class="cont-menu">
+      <nav>
+        <h1 class="bienvenida">
+          Bienvenid@ <span class="user_name"><?= htmlspecialchars($yo["name"]) ?></span> (Admin)
+        </h1>
+      </nav>
+      <label for="btn-menu">✘</label>
+    </div>
+  </div>
+
+  <!-- CONTENIDO DEL PANEL -->
+  <main class="contenido" style="margin-top:120px;">
     <h1>Panel de Administración</h1>
 
     <form method="get">
@@ -79,6 +111,6 @@ if (isset($_GET["usuario_id"])) {
         </form>
       </div>
     <?php endif; ?>
-  </div>
+  </main>
 </body>
 </html>

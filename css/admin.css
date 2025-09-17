@@ -17,53 +17,40 @@
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
-body {
-  display: flex;
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* sin scroll */
   background: var(--bg-color);
-  height: 100vh;
-}
-
-/* --- Sidebar --- */
-.sidebar {
-  width: 220px;
-  background: var(--sidebar-bg);
-  color: white;
-  padding: 20px;
   display: flex;
-  flex-direction: column;
-}
-
-.sidebar h2 {
-  font-size: 20px;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #ecf0f1;
-}
-
-.sidebar a {
-  color: #ecf0f1;
-  text-decoration: none;
-  padding: 10px;
-  border-radius: var(--radius);
-  transition: background 0.3s;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.sidebar a:hover {
-  background: rgba(255,255,255,0.1);
+  justify-content: center;
+  align-items: center;
 }
 
 /* --- Contenido --- */
 .content {
-  flex: 1;
-  padding: 30px;
-  overflow-y: auto;
+  width: 100%;
+  max-width: 950px;
+  text-align: center;
+}
+.contenidp{
+    margin-left: 0%;
 }
 
-h1 {
-  margin-bottom: 20px;
+
+/* título */
+.content h1 {
+  margin-bottom: 25px;
   color: var(--primary);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* formulario selección */
+.content form {
+  margin-bottom: 25px;
 }
 
 form label {
@@ -82,45 +69,90 @@ select, input {
   font-size: 14px;
 }
 
-/* --- Tarjeta usuario --- */
+/* --- Tarjeta --- */
 .card {
   background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 25px;
+  padding: 40px;
   box-shadow: var(--shadow);
-  max-width: 450px;
-  margin-top: 20px;
+  max-width: 950px;
+  margin: 0 auto;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
 }
 
-.card h2 {
-  margin-bottom: 15px;
-  color: var(--text-dark);
+/* Columna izquierda */
+.card .left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border-right: 1px solid #eee;
+  padding-right: 30px;
 }
 
 .avatar {
-  width: 100px;
-  height: 100px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   object-fit: cover;
-  margin: 15px 0;
-  border: 3px solid var(--primary);
+  margin-bottom: 15px;
+  border: 4px solid var(--primary);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
-/* --- Botón --- */
+/* Columna derecha */
+.card .right {
+  flex: 2.2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px 25px;
+  width: 100%;
+}
+
+.card h2 {
+  grid-column: span 2;
+  text-align: center;
+  margin-bottom: 10px;
+  color: var(--text-dark);
+  font-size: 1.5rem;
+}
+
+/* inputs */
+.card label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: var(--text-dark);
+}
+
+.card input,
+.card select {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+/* botón ocupa toda la fila */
 .btn {
+  grid-column: span 2;
   background: var(--primary);
   color: white;
-  padding: 12px;
+  padding: 16px;
   border: none;
   border-radius: var(--radius);
   cursor: pointer;
-  font-size: 15px;
-  margin-top: 15px;
-  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
   transition: background 0.3s ease, transform 0.1s ease;
 }
 
 .btn:hover {
   background: var(--primary-hover);
-  transform: scale(1.02);
+  transform: translateY(-2px);
 }
