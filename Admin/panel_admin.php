@@ -82,33 +82,45 @@ if (isset($_GET["usuario_id"])) {
 
     <?php if ($usuario): ?>
       <div class="card">
-        <h2>Gestión de <?= htmlspecialchars($usuario["name"]) ?></h2>
-        <img src="<?= htmlspecialchars($usuario["profile_pic"]) ?>" alt="Avatar" class="avatar">
+        <div class="left">
+          <h2>Gestión de <?= htmlspecialchars($usuario["name"]) ?></h2>
+<!-- Imagen usuario -->
+          <?php
+  $filename = $usuario["profile_pic"];
+  $avatar = (!empty($filename) && file_exists(__DIR__ . '/../img/perfiles/' . $filename))
+            ? '/img/perfiles/' . $filename
+            : '/img/avatar_default.jpg'; // imagen por defecto
+?>
+<!--------------------------------------------------------------------->
+<img src="<?= htmlspecialchars($avatar) ?>" alt="Avatar" class="avatar">
 
-        <form method="post" action="update_user.php">
-          <input type="hidden" name="id" value="<?= $usuario["id"] ?>">
+        </div>
+        <div class="right">
+          <form method="post" action="update_user.php">
+            <input type="hidden" name="id" value="<?= $usuario["id"] ?>">
 
-          <label>Nombre:</label>
-          <input type="text" name="name" value="<?= htmlspecialchars($usuario["name"]) ?>">
+            <label>Nombre:</label>
+            <input type="text" name="name" value="<?= htmlspecialchars($usuario["name"]) ?>">
 
-          <label>Email:</label>
-          <input type="email" name="email" value="<?= htmlspecialchars($usuario["email"]) ?>">
+            <label>Email:</label>
+            <input type="email" name="email" value="<?= htmlspecialchars($usuario["email"]) ?>">
 
-          <label>Rol:</label>
-          <select name="role">
-            <option value="user" <?= $usuario["role"]=="user" ? "selected" : "" ?>>Usuario</option>
-            <option value="moderator" <?= $usuario["role"]=="moderator" ? "selected" : "" ?>>Moderador</option>
-            <option value="admin" <?= $usuario["role"]=="admin" ? "selected" : "" ?>>Administrador</option>
-          </select>
+            <label>Rol:</label>
+            <select name="role">
+              <option value="user" <?= $usuario["role"]=="user" ? "selected" : "" ?>>Usuario</option>
+              <option value="moderator" <?= $usuario["role"]=="moderator" ? "selected" : "" ?>>Moderador</option>
+              <option value="admin" <?= $usuario["role"]=="admin" ? "selected" : "" ?>>Administrador</option>
+            </select>
 
-          <label>Estado:</label>
-          <select name="is_active">
-            <option value="1" <?= $usuario["is_active"]==1 ? "selected" : "" ?>>Activo</option>
-            <option value="0" <?= $usuario["is_active"]==0 ? "selected" : "" ?>>Inactivo</option>
-          </select>
+            <label>Estado:</label>
+            <select name="is_active">
+              <option value="1" <?= $usuario["is_active"]==1 ? "selected" : "" ?>>Activo</option>
+              <option value="0" <?= $usuario["is_active"]==0 ? "selected" : "" ?>>Inactivo</option>
+            </select>
 
-          <button type="submit" class="btn">Guardar cambios</button>
-        </form>
+            <button type="submit" class="btn">Guardar cambios</button>
+          </form>
+        </div>
       </div>
     <?php endif; ?>
   </main>
