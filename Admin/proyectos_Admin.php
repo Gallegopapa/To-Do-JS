@@ -18,10 +18,16 @@ $sql = "SELECT p.id, p.name, p.description, p.is_archived, p.created_at,
         ORDER BY p.created_at DESC";
 
 $resultado = $conn->query($sql);
-
 if ($resultado === false) {
     die("Error en la consulta SQL: " . $conn->error);
 }
+
+// Duplicamos la consulta para obtener un proyecto para el botón inferior
+$resultado2 = $conn->query($sql);
+if ($resultado2 === false) {
+    die("Error en la consulta SQL: " . $conn->error);
+}
+$primer_proyecto = $resultado2->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -59,6 +65,7 @@ if ($resultado === false) {
               <td><?= $proyecto['assigned_username'] ? htmlspecialchars($proyecto['assigned_username']) : 'Sin asignar' ?></td>
               <td><?= htmlspecialchars($proyecto['owner_username']) ?></td>
               <td><?= htmlspecialchars($proyecto['created_at']) ?></td>
+
             </tr>
           <?php endwhile; ?>
         </tbody>
@@ -69,7 +76,9 @@ if ($resultado === false) {
 
     <div class="volver">
       <a href="inico_Admin.php" class="btn-volver">Volver a Inicio</a>
-      <a href="inicio.php" class="btn-volver">Editar Proyecto </a>
+      <?php if ($primer_proyecto): ?>
+        <a href="editar_proyectos.php?id=<?= $primer_proyecto['id'] ?>" class="btn-volver">Editar</a>
+      <?php endif; ?>
     </div>
   </div>
 </body>
