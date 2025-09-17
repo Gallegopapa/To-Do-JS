@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("config.php");
+include("../config.php");
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link rel="stylesheet" href="css/crear_proyecto.css"/>
+  <link rel="stylesheet" href="../css/crear_proyecto.css"/>
   <title>Crear Proyecto</title>
 </head>
 <body>
@@ -56,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       <label for="estado">Estado:</label>
       <select name="estado" id="estado" required>
         <option value="activo">Activo</option>
-        <option value="inactivo">Inactivo</option>
       </select>
 
       <label for="asignar">Asignar a:</label>
@@ -77,8 +76,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </form>
 
     <div class="volver">
-      <a href="mis_proyectos.php">Ver mis proyectos</a>
-      <a href="inicio.php" class="btn-volver">Volver a Inicio</a>
+      <a href="inico_Admin.php" class="btn-volver">Volver a Inicio</a>
+      
     </div>
   </div>
 </body>

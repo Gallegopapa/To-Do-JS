@@ -38,9 +38,7 @@ if (isset($_GET["usuario_id"])) {
       <div class="btn-menu"><label for="btn-menu">☰</label></div>
       <div class="logo"><h1>GESTOR TAREAS</h1></div>
       <nav class="menu">
-        <a href="../inicio.php">Ver Tareas</a>
-        <a href="../tareas.php">Agregar Tareas</a>
-        <a href="../crear_proyecto.php">Gestionar Proyectos</a>
+        <a href="crear_proyecto.php">Gestionar Proyectos</a>
         <a href="panel_admin.php">Panel Admin</a>
         <a href="../perfil.php" class="perfil-link">
           <img src="<?= htmlspecialchars($yo["profile_pic"]) ?>" alt="Perfil" class="perfil-icon">

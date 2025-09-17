@@ -1,0 +1,81 @@
+/* ===== Estilos generales ===== */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+/* ===== Tabla ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+thead {
+  background-color: #000000;
+  color: #fff;
+}
+
+thead th {
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+}
+
+tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+  background-color: #f9f9f9;
+  transition: background 0.3s ease;
+}
+
+/* ===== Estados ===== */
+.estado-activo {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.estado-inactivo {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* ===== Botones ===== */
+.btn-volver {
+  display: inline-block;
+  background-color: #000000;
+  color: #fff;
+  padding: 10px 18px;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+
+/* ===== Texto cuando no hay proyectos ===== */
+p {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+}

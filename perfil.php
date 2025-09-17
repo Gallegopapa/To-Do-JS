@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["nueva_imagen"])) {
             <div class="mensaje"><?= htmlspecialchars($mensaje) ?></div>
         <?php endif; ?>
 
-        <a href="inicio.php" class="btn-volver">Volver a Inicio</a>
+        <a href="<?= (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') ? 'admin/inico_Admin.php' : 'inicio.php' ?>" class="btn-volver">Volver a Inicio</a>
 
     </div>
 </body>

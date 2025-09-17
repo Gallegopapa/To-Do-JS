@@ -80,6 +80,7 @@ select, input {
   display: flex;
   gap: 40px;
   align-items: flex-start;
+  margin-top: 10px;
 }
 
 /* Columna izquierda */

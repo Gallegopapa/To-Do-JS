@@ -1,22 +1,20 @@
 <?php
 session_start();
-include("config.php");
+include("../config.php");
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
     exit;
 }
 
-$user_id = $_SESSION["user_id"];
-
-// Consulta para obtener proyectos creados o asignados al usuario
+// Consulta de proyectos creados por administradores
 $sql = "SELECT p.id, p.name, p.description, p.is_archived, p.created_at, 
-               u.name AS assigned_username,
-               o.name AS owner_username
+               u.name AS owner_username, 
+               a.name AS assigned_username
         FROM projects p
-        LEFT JOIN users u ON p.assigned_to = u.id
-        LEFT JOIN users o ON p.owner_id = o.id
-        WHERE p.owner_id = $user_id OR p.assigned_to = $user_id
+        INNER JOIN users u ON p.owner_id = u.id
+        LEFT JOIN users a ON p.assigned_to = a.id
+        WHERE u.role = 'admin'
         ORDER BY p.created_at DESC";
 
 $resultado = $conn->query($sql);
@@ -31,12 +29,12 @@ if ($resultado === false) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link rel="stylesheet" href="css/mis_proyectos.css"/>
-  <title>Mis Proyectos</title>
+  <link rel="stylesheet" href="../css/css_proyectos.css"/>
+  <title>Proyectos de Administradores</title>
 </head>
 <body>
   <div class="container">
-    <h2>Mis Proyectos</h2>
+    <h2>Proyectos Creados por Administradores</h2>
 
     <?php if ($resultado->num_rows > 0): ?>
       <table>
@@ -46,7 +44,7 @@ if ($resultado === false) {
             <th>Descripción</th>
             <th>Estado</th>
             <th>Asignado a</th>
-            <th>Creador</th>
+            <th>Administrador Creador</th>
             <th>Creado el</th>
           </tr>
         </thead>
@@ -66,11 +64,12 @@ if ($resultado === false) {
         </tbody>
       </table>
     <?php else: ?>
-      <p>No tienes proyectos asignados ni creados aún.</p>
+      <p>No hay proyectos creados por administradores aún.</p>
     <?php endif; ?>
 
     <div class="volver">
-      <a href="inicio.php" class="btn-volver">Volver a Inicio</a>
+      <a href="inico_Admin.php" class="btn-volver">Volver a Inicio</a>
+      <a href="inicio.php" class="btn-volver">Editar Proyecto </a>
     </div>
   </div>
 </body>
