@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="logo"><a href="inicio.php"><h1>GESTOR TAREAS</h1></a></div>
         <nav class="menu">
-        <a href="vista_tareas.php">Ver Tareas</a>
+        <a href="mis_proyectos.php">Gestionar proyectos</a>
         <a href="tareas.php">Agregar Tareas</a>
         <a class="cerrar_sesion" href="logout.php">Cerrar sesión</a>
         </nav>

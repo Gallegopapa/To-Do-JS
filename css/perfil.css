@@ -1,13 +1,21 @@
 .perfil-container {
     max-width: 500px;
     margin: 50px auto;
-    background: #222;
+    background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     padding: 30px;
     border-radius: 10px;
     color: white;
     text-align: center;
+    font-family: "Montserrat Alternates", sans-serif;
+}
+h2{
+    color: #000;
 }
 
+p{
+    color: #000;
+}
 .perfil-container img {
     width: 120px;
     height: 120px;
@@ -19,7 +27,7 @@
 
 .perfil-container input[type="file"] {
     margin: 10px 0;
-    color: white;
+    color: #000;
 }
 
 .perfil-container button {

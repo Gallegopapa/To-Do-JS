@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // ✅ Redirección según rol
     if (isset($_SESSION["user_role"]) && $_SESSION["user_role"] === "admin") {
-        header("Location: Admin/inicio_Admin.php");
+        header("Location: Admin/inico_Admin.php");
     } else {
         header("Location: inicio.php");
     }

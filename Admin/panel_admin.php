@@ -28,7 +28,7 @@ if (isset($_GET["usuario_id"])) {
 <head>
   <meta charset="UTF-8">
   <title>Panel Admin</title>
-  <link rel="stylesheet" href="../css/inicio.css">  <!-- header/menu -->
+  <link rel="stylesheet" href="../css/inicio.css">  
   <link rel="stylesheet" href="../css/admin.css">   <!-- panel admin -->
 </head>
 <body>        

@@ -122,7 +122,7 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
             <option value="completada" <?= (($_GET['estado'] ?? '')=="completada")?'selected':''; ?>>Completada</option>
           </select>
           <br>
-          <p>Inicio:</p>
+          <p class="parrafoInicio">Inicio:</p>
           <input type="date" name="fecha_inicio" value="<?= htmlspecialchars($_GET['fecha_inicio'] ?? '') ?>">
 
           <p>Vence:</p>

@@ -224,7 +224,10 @@ input{
 
 p{
   color: white;
-  margin-left: 20px;
+}
+.parrafoInicio{
+  position: relative;
+  right: 12px;
 }
 button.limpiar {
   background: red;
@@ -240,65 +243,88 @@ button.limpiar:hover {
 }
 /*buscador*/
 .filtro-form {
+  /* background: linear-gradient(145deg, #1e1e1e, #262626); */
   background: #1c1c1c;
-  padding: 15px;
-  border-radius: 10px;
-  margin: 15px 10px;
-  color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px 10px;
+  color: #f5f5f5;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
   align-items: center;
+  /* box-shadow: 0 4px 12px rgba(0,0,0,0.4); */
 }
 
 .filtro-form label {
   font-size: 14px;
-  margin-right: 5px;
-  font-weight: bold;
-  color: #bceeff;
+  font-weight: 600;
+  color: #8ee3f5;
+  margin-right: 4px; /* 👈 antes 8px, ahora más pegado */
+  min-width: 70px;   /* para mantener alineación */
+  text-align: right; /* opcional */
 }
 
 .filtro-form input[type="text"],
 .filtro-form input[type="date"],
 .filtro-form select {
-  background: #2c2c2c;
-  border: 1px solid #444;
-  color: #fff;
-  padding: 5px 10px;
+  background: #2a2a2a;
+  border: 1px solid #3d3d3d;
+  color: #f0f0f0;
+  padding: 10px; 
   border-radius: 8px;
   font-size: 14px;
+  transition: all 0.3s ease;
+  width: 200px; 
+  box-sizing: border-box;
+}
+
+
+.filtro-form input[type="text"]:focus,
+.filtro-form input[type="date"]:focus,
+.filtro-form select:focus {
+  border-color: #8ee3f5;
+  outline: none;
+  box-shadow: 0 0 6px rgba(140, 227, 245, 0.6);
 }
 
 .filtro-form input::placeholder {
   color: #aaa;
 }
 
-button.buscar{
-  background: #bceeff;
+button.buscar {
+  background: #8ee3f5;
   border: none;
-  padding: 6px 15px;
+  padding: 8px 18px;
   border-radius: 8px;
   cursor: pointer;
-  color: black;
-  font-weight: bold;
-  transition: 0.3s;
+  color: #1c1c1c;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
 }
 
 button.buscar:hover {
   background: #fff;
   color: #000;
+  transform: translateY(-2px);
 }
 
 .filtro-form a {
   font-size: 14px;
-  color: red;
+  color: #ff5c5c;
   text-decoration: none;
-  margin-left: 10px;
+  margin-left: 12px;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
 .filtro-form a:hover {
+  color: #ff8080;
   text-decoration: underline;
 }
+
 
 /*lista de tareas*/
 .tareas-lista {
