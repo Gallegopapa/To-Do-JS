@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("config.php");
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -6,7 +7,7 @@ $tarea = $conn->query("SELECT * FROM tasks WHERE id=$id")->fetch_assoc();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
-    $description = isset($_POST['description']) ? $_POST['description'] : ''; //evita warning
+    $description = isset($_POST['description']) ? $_POST['description'] : ''; // evita warning
     $status = $_POST['status'];
 
     $sql = "UPDATE tasks 
@@ -14,7 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             WHERE id=$id";
     $conn->query($sql);
 
-    header("Location: inicio.php");
+    // ✅ Redirección según rol
+    if (isset($_SESSION["user_role"]) && $_SESSION["user_role"] === "admin") {
+        header("Location: Admin/inicio_Admin.php");
+    } else {
+        header("Location: inicio.php");
+    }
     exit();
 }
 ?>

@@ -78,7 +78,7 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1) {
   <header class="header">
     <div class="container">
       <div class="btn-menu"><label for="btn-menu">☰</label></div>
-      <div class="logo"><h1>ADMIN PANEL</h1></div>
+      <div class="logo"><h1>GESTOR TAREA</h1></div>
       <nav class="menu">
         <a href="panel_admin.php">Panel Admin</a>
         <a href="proyectos_Admin.php">Ver proyectos</a>

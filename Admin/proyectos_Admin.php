@@ -49,9 +49,10 @@ $primer_proyecto = $resultado2->fetch_assoc();
             <th>Nombre</th>
             <th>Descripción</th>
             <th>Estado</th>
-            <th>Asignado a</th>
+            <th>Asignado al usuario:</th>
             <th>Administrador Creador</th>
             <th>Creado el</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -65,7 +66,11 @@ $primer_proyecto = $resultado2->fetch_assoc();
               <td><?= $proyecto['assigned_username'] ? htmlspecialchars($proyecto['assigned_username']) : 'Sin asignar' ?></td>
               <td><?= htmlspecialchars($proyecto['owner_username']) ?></td>
               <td><?= htmlspecialchars($proyecto['created_at']) ?></td>
-
+              <td>
+                <a href="editar_proyectos.php?id=<?= $proyecto['id'] ?>">
+                  <img src="../svg/lucide--edit(1).svg" alt="Editar" style="width:24px;height:24px;margin-left:20px;">
+                </a>
+              </td>
             </tr>
           <?php endwhile; ?>
         </tbody>
@@ -76,9 +81,7 @@ $primer_proyecto = $resultado2->fetch_assoc();
 
     <div class="volver">
       <a href="inico_Admin.php" class="btn-volver">Volver a Inicio</a>
-      <?php if ($primer_proyecto): ?>
-        <a href="editar_proyectos.php?id=<?= $primer_proyecto['id'] ?>" class="btn-volver">Editar</a>
-      <?php endif; ?>
+
     </div>
   </div>
 </body>

@@ -35,13 +35,13 @@ thead {
 }
 
 thead th {
-  padding: 12px;
+  padding: 16px;
   text-align: left;
   font-weight: bold;
 }
 
 tbody td {
-  padding: 12px;
+  padding: 16px;
   border-bottom: 1px solid #ddd;
 }
 
