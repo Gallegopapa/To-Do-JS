@@ -1,0 +1,101 @@
+/* --- Contenedor principal --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* --- Título --- */
+.container h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 22px;
+    text-align: center;
+}
+
+/* --- Etiquetas --- */
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: #444;
+}
+
+/* --- Área de texto --- */
+textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* --- Checkbox --- */
+input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 8px;
+}
+
+/* --- Botones --- */
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.1s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+/* --- Enlace cancelar --- */
+a {
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: #ccc;
+    color: #333;
+    font-size: 15px;
+    margin-left: 8px;
+    transition: background 0.3s;
+}
+
+a:hover {
+    background: #aaa;
+}
+
+/* --- Caja de errores --- */
+.errors {
+    background: #ffe6e6;
+    border: 1px solid #ff9999;
+    color: #b30000;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
