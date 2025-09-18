@@ -36,7 +36,7 @@ if (isset($_GET["usuario_id"])) {
   <header class="header">
     <div class="container">
       <div class="btn-menu"><label for="btn-menu">☰</label></div>
-      <div class="logo"><a href="inico_Admin.php"><h1>GESTOR TAREAS </h1></a><</div>
+      <div class="logo"><a href="inico_Admin.php"><h1>GESTOR TAREAS</h1></a>r</div>
       <nav class="menu">
         <a href="crear_proyecto.php">Gestionar Proyectos</a>
         <a href="panel_admin.php">Panel Admin</a>
@@ -90,7 +90,6 @@ if (isset($_GET["usuario_id"])) {
             : '/img/avatar_default.jpg'; // imagen por defecto
 ?>
 <!--------------------------------------------------------------------->
-<img src="<?= htmlspecialchars($avatar) ?>" alt="Avatar" class="avatar">
 
         </div>
         <div class="right">
