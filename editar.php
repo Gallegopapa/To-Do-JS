@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("config.php");
 
 $id = $_GET['id'];
@@ -14,7 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             WHERE id=$id";
     $conn->query($sql);
 
-    header("Location: index.php");
+    // Redirección según el rol
+    if (isset($_SESSION["user_role"]) && $_SESSION["user_role"] === "admin") {
+        header("Location: Admin/inico_Admin.php");
+    } else {
+        header("Location: inicio.php");
+    }
     exit();
 }
 ?>
@@ -40,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="completada" <?= $tarea['status']=="completada"?"selected":"" ?>>Completada</option>
         </select><br><br>
 
-        <button type="button" onclick="window.location.href='vista_tareas.php'">Actualizar</button>
+        <button type="submit">Actualizar</button>
         <a href="inicio.php" class="btn-volver">Volver a Inicio</a>
 
     </form>

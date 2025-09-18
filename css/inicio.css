@@ -64,6 +64,7 @@ h1.bienvenida{
   font-weight: 400;
   font-size: 22px;
   margin-left: 6px;
+  text-decoration: none;
 }
 
 .container .menu {
@@ -319,6 +320,9 @@ button.buscar:hover {
   height: 50px;
   border-left: 5px solid #bceeff;
   transition: 0.3s;
+  width: 99%;   /* aumentado de 95% a 99% */
+  max-width: 1200px; /* opcional, para que no se estire demasiado en pantallas grandes */
+    margin-left: 10%
 }
 
 .tarea-item:hover {
@@ -350,9 +354,8 @@ button.buscar:hover {
   margin-top: 110px; 
   padding: 20px;
   color: red;
-  max-width: 1000px;
+  max-width: 2  000px;
   color: var(--color-text);
-  margin-left: 20%
 }
 
 .contenido h2 {

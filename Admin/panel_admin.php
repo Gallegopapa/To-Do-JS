@@ -31,12 +31,12 @@ if (isset($_GET["usuario_id"])) {
   <link rel="stylesheet" href="../css/inicio.css">  <!-- header/menu -->
   <link rel="stylesheet" href="../css/admin.css">   <!-- panel admin -->
 </head>
-<body>
+<body>        
   <!-- HEADER igual que en inicio -->
   <header class="header">
     <div class="container">
       <div class="btn-menu"><label for="btn-menu">☰</label></div>
-      <div class="logo"><h1>GESTOR TAREAS</h1></div>
+      <div class="logo"><a href="inico_Admin.php"><h1>GESTOR TAREAS </h1></a><</div>
       <nav class="menu">
         <a href="crear_proyecto.php">Gestionar Proyectos</a>
         <a href="panel_admin.php">Panel Admin</a>
