@@ -1,12 +1,12 @@
 <?php
 include("config.php");
 
-$id = $_GET['id'];
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $tarea = $conn->query("SELECT * FROM tasks WHERE id=$id")->fetch_assoc();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
-    $description = isset($_POST['description']) ? $_POST['description'] : ''; // ✅ evitar warning
+    $description = isset($_POST['description']) ? $_POST['description'] : ''; //evita warning
     $status = $_POST['status'];
 
     $sql = "UPDATE tasks 
@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             WHERE id=$id";
     $conn->query($sql);
 
-    header("Location: index.php");
+    header("Location: inicio.php");
     exit();
 }
 ?>
@@ -30,8 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2>Editar Tarea</h2>
         
         <label>Título:</label><br>
-        <input type="text" name="title" value="<?= $tarea['title'] ?>" required><br><br>
+        <input type="text" name="title" value="<?= htmlspecialchars($tarea['title']) ?>" required><br><br>
 
+        <label>Descripción:</label><br>
+        <textarea name="description" rows="4" cols="50"><?= htmlspecialchars($tarea['description_md']) ?></textarea><br><br>
 
         <label>Estado:</label><br>
         <select name="status">
@@ -40,9 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="completada" <?= $tarea['status']=="completada"?"selected":"" ?>>Completada</option>
         </select><br><br>
 
-        <button type="button" onclick="window.location.href='vista_tareas.php'">Actualizar</button>
+        <button type="submit">Actualizar</button>
         <a href="inicio.php" class="btn-volver">Volver a Inicio</a>
-
     </form>
 </body>
 </html>
