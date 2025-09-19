@@ -14,7 +14,7 @@
   --transition: 0.3s ease;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
@@ -32,7 +32,7 @@ body {
   padding-top: 120px;
 }
 
-/*header*/
+/* ===== Header ===== */
 .header {
   width: 100%;
   height: 100px;
@@ -41,7 +41,7 @@ body {
   background-color: black;
 }
 
-.container .menu a.cerrar_sesion:hover{
+.container .menu a.cerrar_sesion:hover {
   color: red;
 }
 
@@ -92,6 +92,7 @@ body {
   padding-bottom: 5px;
 }
 
+/* ===== Contenido ===== */
 .contenido {
   max-width: 900px;
   margin: 30px auto;
@@ -104,56 +105,14 @@ body {
 .contenido h2 {
   margin-bottom: 15px;
   color: var(--color-header);
+  text-align: center;
 }
 
-.tarea {
-  background: #ecf0f1;
-  padding: 12px 15px;
-  margin-bottom: 10px;
-  border-radius: var(--radius);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.tarea small {
-  color: var(--color-subtask);
-  font-style: italic;
-}
-
-.tarea a {
-  margin-left: 10px;
-  text-decoration: none;
-  font-size: 1rem;
-}
-
-.tarea a[href*="editar"] {
-  color: var(--color-accent);
-}
-
-.tarea a[href*="editar"]:hover {
-  color: var(--color-accent-hover);
-}
-
-.tarea a[href*="eliminar"] {
-  color: var(--color-danger);
-}
-
-.tarea a[href*="eliminar"]:hover {
-  color: var(--color-danger-hover);
-}
-
-.subtarea {
-  background: #f9f9f9;
-  padding: 10px;
-  margin: 5px 0;
-  border-left: 3px solid var(--color-accent);
-  border-radius: var(--radius);
-  font-size: 0.95rem;
-}
-
+/* ===== Formularios ===== */
 form {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 form label {
@@ -164,7 +123,9 @@ form label {
 }
 
 form input[type="text"],
-form select {
+form input[type="date"],
+form select,
+form textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -174,18 +135,50 @@ form select {
   transition: var(--transition);
 }
 
-form input[type="text"]:focus,
-form select:focus {
+form input:focus,
+form select:focus,
+form textarea:focus {
   outline: none;
   border-color: var(--color-accent);
   box-shadow: 0 0 4px rgba(52, 152, 219, 0.5);
 }
 
+/* Textarea (Descripción) */
+form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Botón archivo */
+button[type="button"] {
+  background: #f4f4f4;
+  border: 1px solid #ccc;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+button[type="button"]:hover {
+  background: #e6e6e6;
+}
+
+#nombreArchivo {
+  font-size: 14px;
+  color: #555;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+/* Botón guardar */
 button[type="submit"] {
   background: var(--color-accent);
   color: #fff;
   border: none;
-  padding: 10px 18px;
+  padding: 12px;
   font-size: 1rem;
   border-radius: var(--radius);
   cursor: pointer;

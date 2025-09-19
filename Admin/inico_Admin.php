@@ -50,13 +50,19 @@ if (!empty($_GET["fecha_vencimiento"])) {
 $sql = "SELECT * FROM tasks WHERE $where ORDER BY created_at DESC";
 $tareas = $conn->query($sql);
 
-// función para mostrar subtareas
+// función para mostrar subtareas con descripción
 function listarSubtareasVista($conn, $parent_id, $nivel=1) {
     $sql = "SELECT * FROM tasks WHERE parent_task_id = $parent_id ORDER BY created_at ASC";
     $result = $conn->query($sql);
     while($s = $result->fetch_assoc()) {
         echo "<li class='subtarea-item' style='margin-left:".($nivel*15)."px'>";
         echo "↳ <b>".htmlspecialchars($s['title'])."</b> <small>[".htmlspecialchars($s['status'])."]</small><br>";
+        
+        // ✅ Mostrar descripción desde description_md
+        if (!empty($s['description_md'])) {
+            echo "<div class='descripcion-tarea'>".nl2br(htmlspecialchars($s['description_md']))."</div>";
+        }
+
         echo "<span>Prioridad:</span> ".htmlspecialchars($s['prioridad'])." | ";
         echo "<span>".htmlspecialchars($s['etiquetas'])."</span> | ";
         echo "<span>Inicio: ".($s['start_date'] ?: '-')." / Vence: ".($s['due_date'] ?: '-')."</span>";
@@ -119,7 +125,7 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1) {
           <select name="estado">
             <option value="">Todos</option>
             <option value="pendiente" <?= (($_GET['estado'] ?? '')=="pendiente")?'selected':''; ?>>Pendiente</option>
-            <option value="en progreso" <?= (($_GET['estado'] ?? '')=="en progreso")?'selected':''; ?>>En Progreso</option>
+            <option value="en_progreso" <?= (($_GET['estado'] ?? '')=="en_progreso")?'selected':''; ?>>En Progreso</option>
             <option value="completada" <?= (($_GET['estado'] ?? '')=="completada")?'selected':''; ?>>Completada</option>
           </select>
 
@@ -130,7 +136,7 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1) {
           <input type="date" name="fecha_vencimiento" value="<?= htmlspecialchars($_GET['fecha_vencimiento'] ?? '') ?>">
 
           <button class="buscar" type="submit">Buscar</button>
-          <button class="limpiar" onclick="window.location.href='inicio_Admin.php'">Limpiar</button>
+          <button type='button' class="limpiar" onclick="window.location.href='inico_Admin.php'">Limpiar</button>
         </form>
       </nav>
       <label for="btn-menu">✘</label>
@@ -147,6 +153,14 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1) {
                   <b><?= htmlspecialchars($t['title']) ?></b> 
                   <small><?= htmlspecialchars($t['status']) ?></small>
                 </div>
+
+                <!-- ✅ Mostrar descripción desde description_md -->
+                <?php if (!empty($t['description_md'])): ?>
+                  <div class="descripcion-tarea">
+                    <?= nl2br(htmlspecialchars($t['description_md'])) ?>
+                  </div>
+                <?php endif; ?>
+
                 <div class="tarea-meta">
                   <span>Prioridad:</span> <?= htmlspecialchars($t['prioridad']) ?> | 
                   <span><?= htmlspecialchars($t['etiquetas']) ?></span> | 
@@ -156,16 +170,19 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1) {
                     <div class="archivos-tarea">
                       <span>Archivos:</span>
                       <?php foreach (explode(',', $t['archivo']) as $archivo): $archivo = trim($archivo); if ($archivo): ?>
-                        <a href="uploads/<?= htmlspecialchars($archivo) ?>" target="_blank">📎 <?= htmlspecialchars($archivo) ?></a>
+                        <a href="../uploads/<?= htmlspecialchars($archivo) ?>" target="_blank">📎 <?= htmlspecialchars($archivo) ?></a>
                       <?php endif; endforeach; ?>
                     </div>
                   <?php endif; ?>
                 </div>
+
                 <div class="tarea-actions">
-                  <a href="editar.php?id=<?= $t['id'] ?>"><img src="../svg/lucide--edit(1).svg" alt=""></a>
-                  <a href="eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')"><img src="../svg/material-symbols--close (1).svg" alt=""></a>
+                  <a href="../editar.php?id=<?= $t['id'] ?>"><img src="../svg/lucide--edit(1).svg" alt="Editar"></a>
+                  <a href="../comentarios.php?task_id=<?= $t['id'] ?>"><img src="../svg/ic--twotone-message.svg" alt="Comentarios"></a>
+                  <a href="../eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')"><img src="../svg/material-symbols--close (1).svg" alt="Eliminar"></a>
                 </div>
-                <?php listarSubtareasVista($conn, $t['id'], 1, $user_id); ?>
+
+                <?php listarSubtareasVista($conn, $t['id'], 1); ?>
             </li>
         <?php endwhile; ?>
       </ul>

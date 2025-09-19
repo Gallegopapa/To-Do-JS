@@ -46,11 +46,11 @@ if (!empty($_GET["fecha_vencimiento"])) {
     $where .= " AND due_date <= '$fv'";
 }
 
-//consulta tareas principales filtradas
+// consulta tareas principales filtradas
 $sql = "SELECT * FROM tasks WHERE $where ORDER BY created_at DESC";
 $tareas = $conn->query($sql);
 
-// función recursiva estilo vista_tareas.php
+// función recursiva para mostrar subtareas
 function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
     $sql = "SELECT * FROM tasks WHERE parent_task_id = $parent_id AND creator_id = $user_id ORDER BY created_at ASC";
     $result = $conn->query($sql);
@@ -62,6 +62,12 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
             echo "<div class='subtarea-header'>";
             echo "<b>".htmlspecialchars($s['title'])."</b> <small>".htmlspecialchars($s['status'] ?: '-')."</small>";
             echo "</div>";
+
+            // ✅ Mostrar descripción de subtarea
+            if (!empty($s['description_md'])) {
+                echo "<div class='subtarea-descripcion'>".nl2br(htmlspecialchars($s['description_md']))."</div>";
+            }
+
             echo "<div class='subtarea-meta'>";
             echo "<span>Prioridad:</span> ".htmlspecialchars($s['prioridad'])." | ";
             echo "<span>".htmlspecialchars($s['etiquetas'])."</span> | ";
@@ -82,6 +88,7 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
             echo "</div>";
             echo "<div class='subtarea-actions'>";
             echo " <a href='editar.php?id={$s['id']}'><img src='svg/lucide--edit(1).svg'></a>";
+            echo " <a href='comentarios.php?task_id={$s['id']}'><img src='svg/ic--twotone-message.svg'></a>";
             echo " <a href='eliminar.php?id={$s['id']}' onclick=\"return confirm('¿Seguro que deseas eliminar esta tarea?')\"><img src='svg/material-symbols--close (1).svg'></a>";
             echo "</div>";
             listarSubtareasVista($conn, $s['id'], $nivel+1, $user_id);
@@ -153,6 +160,7 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
           <input type="date" name="fecha_vencimiento" value="<?= htmlspecialchars($_GET['fecha_vencimiento'] ?? '') ?>">
 
           <button class="buscar" type="submit">Buscar</button>
+          <button type='button' class="limpiar" onclick="window.location.href='inicio.php'">Limpiar</button>
         </form>
       </nav>
       <label for="btn-menu">✘</label>
@@ -169,6 +177,14 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
                   <b><?= htmlspecialchars($t['title']) ?></b> 
                   <small><?= htmlspecialchars($t['status'] ?: '-') ?></small>
                 </div>
+
+                <!-- ✅ Mostrar descripción -->
+                <?php if (!empty($t['description_md'])): ?>
+                  <div class="tarea-descripcion">
+                    <?= nl2br(htmlspecialchars($t['description_md'])) ?>
+                  </div>
+                <?php endif; ?>
+
                 <div class="tarea-meta">
                   <span>Prioridad:</span> <?= htmlspecialchars($t['prioridad']) ?> | 
                   <span><?= htmlspecialchars($t['etiquetas']) ?></span> | 
@@ -185,6 +201,7 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
                 </div>
                 <div class="tarea-actions">
                   <a href="editar.php?id=<?= $t['id'] ?>"><img src="svg/lucide--edit(1).svg" alt=""></a>
+                  <a href="comentarios.php?task_id=<?= $t['id'] ?>"><img src="svg/ic--twotone-message.svg" alt=""></a>
                   <a href="eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')"><img src="svg/material-symbols--close (1).svg" alt=""></a>
                 </div>
                 <?php listarSubtareasVista($conn, $t['id'], 1, $user_id); ?>

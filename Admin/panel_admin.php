@@ -36,7 +36,7 @@ if (isset($_GET["usuario_id"])) {
   <header class="header">
     <div class="container">
       <div class="btn-menu"><label for="btn-menu">☰</label></div>
-      <div class="logo"><a href="inico_Admin.php"><h1>GESTOR TAREAS</h1></a>r</div>
+      <div class="logo"><a href="inico_Admin.php"><h1>GESTOR TAREAS</h1></a></div>
       <nav class="menu">
         <a href="crear_proyecto.php">Gestionar Proyectos</a>
         <a href="panel_admin.php">Panel Admin</a>
@@ -66,6 +66,20 @@ if (isset($_GET["usuario_id"])) {
   <main class="contenido_admin" style="margin-top:120px;">
     <h1>Panel de Administración</h1>
 
+    <!-- MENSAJES DE ALERTA -->
+    <?php if (isset($_GET["error"]) && $_GET["error"] === "usuario_con_tareas"): ?>
+      <div style="background:#f8d7da; color:#721c24; padding:10px; border:1px solid #f5c6cb; border-radius:5px; margin-bottom:15px;">
+        ❌ No puedes eliminar este usuario porque tiene tareas asignadas. 
+        Elimina o reasigna sus tareas primero.
+      </div>
+    <?php endif; ?>
+
+    <?php if (isset($_GET["msg"]) && $_GET["msg"] === "usuario_eliminado"): ?>
+      <div style="background:#d4edda; color:#155724; padding:10px; border:1px solid #c3e6cb; border-radius:5px; margin-bottom:15px;">
+        ✅ Usuario eliminado con éxito.
+      </div>
+    <?php endif; ?>
+
     <form method="get">
       <label for="usuario_id">Seleccionar Usuario:</label>
       <select name="usuario_id" id="usuario_id" onchange="this.form.submit()">
@@ -89,7 +103,7 @@ if (isset($_GET["usuario_id"])) {
                       ? '/img/perfiles/' . $filename
                       : '/img/avatar_default.jpg'; // imagen por defecto
           ?>
-          <img src="<?= htmlspecialchars($avatar) ?>" alt="Avatar" class="perfil-icon-grande">
+          <img src="<?= htmlspecialchars($avatar) ?>" alt="" class="perfil-icon-grande">
         </div>
         <div class="right">
           <form method="post" action="update_user.php">

@@ -62,6 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label>Título:</label>
         <input type="text" name="title" required>
 
+        <label>Descripción:</label>
+        <textarea name="description" rows="4" placeholder="Escribe la descripción de la tarea..."></textarea>
+
         <label>Estado:</label>
         <select name="status">
             <option value="Pendiente">Pendiente</option>
@@ -94,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="date" name="start_date">
 
         <label>Fecha de vencimiento:</label>
-        <input type="date" name="due_date">
+        <input type="date" name="due_date" min="<?= date('Y-m-d') ?>">
 
         <label>Archivo adjunto:</label><br>
         <input type="file" name="archivo" id="archivo" style="display:none">

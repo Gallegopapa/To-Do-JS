@@ -61,7 +61,26 @@ tbody tr:hover {
   font-weight: bold;
 }
 
-/* ===== Botones ===== */
+/* ===== Acciones ===== */
+td.acciones {
+  display: flex;
+  gap: 10px; /* espacio entre íconos */
+  align-items: center;
+  justify-content: flex-start; /* puedes cambiar a center si quieres centrarlos */
+}
+
+td.acciones i {
+  cursor: pointer;
+  font-size: 18px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+td.acciones i:hover {
+  transform: scale(1.2);
+  color: #3498db; /* azul en hover */
+}
+
+/* ===== Botón volver ===== */
 .btn-volver {
   display: inline-block;
   background-color: #000000;
@@ -71,7 +90,6 @@ tbody tr:hover {
   border-radius: 8px;
   transition: background 0.3s ease;
 }
-
 
 /* ===== Texto cuando no hay proyectos ===== */
 p {

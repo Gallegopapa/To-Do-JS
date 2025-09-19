@@ -38,16 +38,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label>Título:</label><br>
         <input type="text" name="title" value="<?= htmlspecialchars($tarea['title']) ?>" required><br><br>
 
+        <label>Descripción:</label><br>
+        <textarea name="description" rows="4" placeholder="Escribe la descripción de la tarea..."><?= htmlspecialchars($tarea['description_md']) ?></textarea><br><br>
 
         <label>Estado:</label><br>
         <select name="status">
-    <option value="Pendiente" <?= $tarea['status']=="Pendiente"?"selected":"" ?>>Pendiente</option>
-    <option value="En_progreso" <?= $tarea['status']=="En_progreso"?"selected":"" ?>>En progreso</option>
-    <option value="Completada" <?= $tarea['status']=="Completada"?"selected":"" ?>>Completada</option>
-</select>
+            <option value="Pendiente" <?= $tarea['status']=="Pendiente"?"selected":"" ?>>Pendiente</option>
+            <option value="En_progreso" <?= $tarea['status']=="En_progreso"?"selected":"" ?>>En progreso</option>
+            <option value="Completada" <?= $tarea['status']=="Completada"?"selected":"" ?>>Completada</option>
+        </select><br><br>
 
         <button type="submit">Actualizar</button>
-        <a href="inicio.php" class="btn-volver">Volver a Inicio</a>
+        <a href="<?= (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') ? 'admin/inico_Admin.php' : 'inicio.php' ?>" class="btn-volver">Volver a Inicio</a>
     </form>
 </body>
 </html>

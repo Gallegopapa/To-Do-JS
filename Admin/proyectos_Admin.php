@@ -66,11 +66,16 @@ $primer_proyecto = $resultado2->fetch_assoc();
               <td><?= $proyecto['assigned_username'] ? htmlspecialchars($proyecto['assigned_username']) : 'Sin asignar' ?></td>
               <td><?= htmlspecialchars($proyecto['owner_username']) ?></td>
               <td><?= htmlspecialchars($proyecto['created_at']) ?></td>
-              <td>
-                <a href="editar_proyectos.php?id=<?= $proyecto['id'] ?>">
-                  <img src="../svg/lucide--edit(1).svg" alt="Editar" style="width:24px;height:24px;margin-left:20px;">
-                </a>
-              </td>
+                      <td class="acciones">
+          <a href="editar_proyectos.php?id=<?= $proyecto['id'] ?>">
+            <img src="../svg/lucide--edit(1).svg" alt="Editar">
+          </a>
+          <a href="eliminar_proyectos.php?id=<?= $proyecto['id'] ?>" 
+            onclick="return confirm('¿Seguro que deseas eliminar este proyecto?')">
+            <img src="../svg/material-symbols--close (1).svg" alt="Eliminar">
+          </a>
+        </td>
+
             </tr>
           <?php endwhile; ?>
         </tbody>
