@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES ('$title', '$description', '$status', $parent, $user_id, '$etiquetas', '$prioridad', $start_date, $due_date, '$archivo_nombre', NOW())";
     $conn->query($sql);
 
-    header("Location: vista_tareas.php");
+    header("Location: inicio.php");
     exit;
 }
 ?>

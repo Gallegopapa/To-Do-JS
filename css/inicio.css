@@ -23,12 +23,12 @@ body {
   left: 0;
 }
 
-h1.bienvenida{
+h1.bienvenida {
   color: red;
   font-size: 15px;
 }
 
-/*header*/
+/* Header */
 .header {
   width: 100%;
   height: 100px;
@@ -37,7 +37,7 @@ h1.bienvenida{
   background-color: black;
 }
 
-.container .menu a.cerrar_sesion:hover{
+.container .menu a.cerrar_sesion:hover {
   color: red;
 }
 
@@ -88,7 +88,8 @@ h1.bienvenida{
   border-bottom: 2px solid #c7c7c7;
   padding-bottom: 5px;
 }
-/*perfil*/
+
+/* Perfil */
 .perfil-link {
   display: inline-block;
   margin-left: 15px;
@@ -119,10 +120,6 @@ h1.bienvenida{
   margin-left: 15px;
 }
 
-.perfil-icon:hover {
-  transform: scale(1.1);
-}
-
 .perfil-nombre-navbar {
   font-weight: bold;
   font-size: 14px;
@@ -130,7 +127,7 @@ h1.bienvenida{
   white-space: nowrap;
 }
 
-/*menu lateral*/
+/* Menú lateral */
 #btn-menu {
   display: none;
 }
@@ -157,13 +154,13 @@ h1.bienvenida{
   max-width: 250px;
   background: #1c1c1c;
   height: 100vh;
-  color:white;
+  color: white;
   position: relative;
   transition: all 500ms ease;
   transform: translateX(-100%);
 }
 
-.user_name{
+.user_name {
   color: #bceeff;
   font-weight: bold;
 }
@@ -186,7 +183,7 @@ h1.bienvenida{
   transition: all 400ms ease;
 }
 
-.btn-iniciar{
+.btn-iniciar {
   background-color: rgb(233, 233, 233);
   border-radius: 10px;
   height: 27px;
@@ -194,18 +191,16 @@ h1.bienvenida{
   margin-left: 60px;
 }
 
-.btn-iniciar:hover{
+.btn-iniciar:hover {
   cursor: pointer;
   background-color: gray;
 }
 
-input{
+input {
   height: 27px;
   width: 200px;
-  margin-left: 20px;
+  margin: 10px 0;
   border-radius: 10px;
-  margin: 10px;
-  margin-left: 0;
 }
 
 .cont-menu nav a:hover {
@@ -222,13 +217,15 @@ input{
   font-size: 18px;
 }
 
-p{
+p {
   color: white;
 }
-.parrafoInicio{
+
+.parrafoInicio {
   position: relative;
   right: 12px;
 }
+
 button.limpiar {
   background: red;
   border: none;
@@ -238,12 +235,13 @@ button.limpiar {
   color: black;
   font-weight: bold;
 }
+
 button.limpiar:hover {
-  background: darkred; /* rojo más oscuro */
+  background: darkred;
 }
-/*buscador*/
+
+/* Buscador */
 .filtro-form {
-  /* background: linear-gradient(145deg, #1e1e1e, #262626); */
   background: #1c1c1c;
   padding: 20px;
   border-radius: 12px;
@@ -253,16 +251,15 @@ button.limpiar:hover {
   flex-wrap: wrap;
   gap: 15px;
   align-items: center;
-  /* box-shadow: 0 4px 12px rgba(0,0,0,0.4); */
 }
 
 .filtro-form label {
   font-size: 14px;
   font-weight: 600;
   color: #8ee3f5;
-  margin-right: 4px; /* 👈 antes 8px, ahora más pegado */
-  min-width: 70px;   /* para mantener alineación */
-  text-align: right; /* opcional */
+  margin-right: 4px;
+  min-width: 70px;
+  text-align: right;
 }
 
 .filtro-form input[type="text"],
@@ -278,7 +275,6 @@ button.limpiar:hover {
   width: 200px; 
   box-sizing: border-box;
 }
-
 
 .filtro-form input[type="text"]:focus,
 .filtro-form input[type="date"]:focus,
@@ -311,77 +307,63 @@ button.buscar:hover {
   transform: translateY(-2px);
 }
 
-.filtro-form a {
-  font-size: 14px;
-  color: #ff5c5c;
-  text-decoration: none;
-  margin-left: 12px;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.filtro-form a:hover {
-  color: #ff8080;
-  text-decoration: underline;
-}
-
-
-/*lista de tareas*/
-.tareas-lista {
-  margin: 20px 10px;
+/* Lista de tareas */
+.tareas-lista,
+.subtareas-lista {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.tareas-lista li {
-  display: flex;
+.tarea-item,
+.subtarea-item {
   background: #ffffff;
-  box-shadow: 0 6px 12px rgba(0.2, 0, 0, 0.2);
-  padding: 10px;
-  justify-content: space-between;
+  margin: 10px auto;
+  padding: 12px 15px;
   border-radius: 8px;
-  margin-bottom: 8px;
-  color: #000000;
-  height: 50px;
-  border-left: 5px solid #bceeff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   transition: 0.3s;
-  width: 99%;   /* aumentado de 95% a 99% */
-  max-width: 1200px; /* opcional, para que no se estire demasiado en pantallas grandes */
-    margin-left: 10%
-}
-
-.tarea-item:hover {
-  transform: translateY(-3px);
-}
-
-.tareas-lista li:hover {
-  background: #ececec;
-}
-
-.tareas-lista li span {
-  font-size: 13px;
-  color: black;
-  font-weight: bold;
-  margin-left: 5px;
-} 
-
-.tarea-item b {
-  font-size: 1.1rem;
-  color: var(--color-header);
-}
-
-.tarea-item small {
   color: #000;
-  margin-left: 12px;
+  border-left: 5px solid #bceeff;
+  max-width: 1200px;
+}
+
+/* .tarea-item:hover,
+.subtarea-item:hover {
+  background: #f5f5f5;
+  transform: translateY(-2px);
+} */
+
+.tarea-header,
+.subtarea-header {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.tarea-meta,
+.subtarea-meta {
+  font-size: 0.9em;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.tarea-actions,
+.subtarea-actions {
+  margin-top: 5px;
+}
+
+.subtareas-lista {
+  margin-left: 20px;
+  padding-left: 15px;
+  border-left: 2px solid rgba(0,0,0,0.2);
 }
 
 .contenido {
   margin-top: 110px; 
   padding: 20px;
-  color: red;
-  max-width: 2  000px;
-  color: var(--color-text);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .contenido h2 {
@@ -391,34 +373,57 @@ button.buscar:hover {
   color: #000;
 }
 
-/*enlaces*/
-.tarea-item a {
+/* Enlaces */
+.tarea-item a,
+.subtarea-item a {
   margin-left: 12px;
   text-decoration: none;
   font-size: 1.1rem;
 }
 
-.tarea-item a[href*="editar"] {
-  color: var(--color-accent);
-}
-.tarea-item a[href*="editar"]:hover {
-  color: var(--color-accent-hover);
+.tarea-item a[href*="editar"],
+.subtarea-item a[href*="editar"] {
+  color: #3498db;
 }
 
-.tarea-item a[href*="eliminar"] {
-  color: var(--color-danger);
-}
-.tarea-item a[href*="eliminar"]:hover {
-  color: var(--color-danger-hover);
+.tarea-item a[href*="editar"]:hover,
+.subtarea-item a[href*="editar"]:hover {
+  color: #2980b9;
 }
 
-/*subtareas*/
-.subtarea {
-  background: #fafafa;
-  padding: 12px 15px;
-  margin: 8px 0;
-  border-left: 4px solid var(--color-accent);
-  border-radius: var(--radius);
-  font-size: 0.95rem;
-  box-shadow: var(--shadow);
+.tarea-item a[href*="eliminar"],
+.subtarea-item a[href*="eliminar"] {
+  color: #e74c3c;
+}
+
+.tarea-item a[href*="eliminar"]:hover,
+.subtarea-item a[href*="eliminar"]:hover {
+  color: #c0392b;
+}
+/* Archivos adjuntos (tareas y subtareas) */
+.archivos-tarea {
+  margin-top: 6px;
+  padding-left: 8px;
+  font-size: 13px;
+  font-size: 14px;
+  color: #444;
+}
+
+.archivos-tarea span {
+  font-weight: bold;
+  margin-right: 5px;
+  color: #000;
+}
+
+.archivos-tarea a {
+  display: inline-block;
+  margin-right: 10px;
+  color: #000000;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.archivos-tarea a:hover {
+  text-decoration: underline;
+  color: #0056b3;
 }

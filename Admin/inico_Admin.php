@@ -138,20 +138,34 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1) {
   </div>
 
   <main class="contenido" style="padding:20px; color:white;">
-      <h2>Resultados de todas las Tareas</h2>
+      <h2>Resultados de tus Tareas</h2>
       <hr><br>
       <ul class="tareas-lista">
         <?php while($t = $tareas->fetch_assoc()): ?>
             <li class="tarea-item">
-                <b><?= htmlspecialchars($t['title']) ?></b> 
-                <small><?= htmlspecialchars($t['status']) ?></small><br>
-                <span>Prioridad:</span> <?= htmlspecialchars($t['prioridad']) ?> | 
-                <span><?= htmlspecialchars($t['etiquetas']) ?></span> | 
-                <span>Inicio: <?= $t['start_date'] ?: '-' ?> / Vence: <?= $t['due_date'] ?: '-' ?></span>
-                <br>
-                <a href="../editar.php?id=<?= $t['id'] ?>"><img src="../svg/lucide--edit(1).svg" alt=""></a>
-                <a href="../eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')"><img src="../svg/material-symbols--close (1).svg" alt=""></a>
-                <?php listarSubtareasVista($conn, $t['id'], 1); ?>
+                <div class="tarea-header">
+                  <b><?= htmlspecialchars($t['title']) ?></b> 
+                  <small><?= htmlspecialchars($t['status']) ?></small>
+                </div>
+                <div class="tarea-meta">
+                  <span>Prioridad:</span> <?= htmlspecialchars($t['prioridad']) ?> | 
+                  <span><?= htmlspecialchars($t['etiquetas']) ?></span> | 
+                  <span>Inicio: <?= $t['start_date'] ?: '-' ?> / Vence: <?= $t['due_date'] ?: '-' ?></span>
+                  
+                  <?php if (!empty($t['archivo'])): ?>
+                    <div class="archivos-tarea">
+                      <span>Archivos:</span>
+                      <?php foreach (explode(',', $t['archivo']) as $archivo): $archivo = trim($archivo); if ($archivo): ?>
+                        <a href="uploads/<?= htmlspecialchars($archivo) ?>" target="_blank">📎 <?= htmlspecialchars($archivo) ?></a>
+                      <?php endif; endforeach; ?>
+                    </div>
+                  <?php endif; ?>
+                </div>
+                <div class="tarea-actions">
+                  <a href="editar.php?id=<?= $t['id'] ?>"><img src="../svg/lucide--edit(1).svg" alt=""></a>
+                  <a href="eliminar.php?id=<?= $t['id'] ?>" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')"><img src="../svg/material-symbols--close (1).svg" alt=""></a>
+                </div>
+                <?php listarSubtareasVista($conn, $t['id'], 1, $user_id); ?>
             </li>
         <?php endwhile; ?>
       </ul>
