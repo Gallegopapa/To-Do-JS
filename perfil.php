@@ -14,7 +14,7 @@ $user_name = $_SESSION["user_name"];
 // Obtener imagen de perfil actual
 $sql = "SELECT profile_pic FROM users WHERE id = $user_id";
 $result = $conn->query($sql);
-$profile_pic = "img/default_profile.png"; // por defecto
+$profile_pic = "img/default_profile.png"; //por defecto
 
 if ($result && $result->num_rows > 0) {
     $row = $result->fetch_assoc();

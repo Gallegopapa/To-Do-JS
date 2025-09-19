@@ -82,15 +82,14 @@ if (isset($_GET["usuario_id"])) {
       <div class="card">
         <div class="left">
           <h2>Gestión de <?= htmlspecialchars($usuario["name"]) ?></h2>
-<!-- Imagen usuario -->
+          <!-- Imagen usuario -->
           <?php
-  $filename = $usuario["profile_pic"];
-  $avatar = (!empty($filename) && file_exists(__DIR__ . '/../img/perfiles/' . $filename))
-            ? '/img/perfiles/' . $filename
-            : '/img/avatar_default.jpg'; // imagen por defecto
-?>
-<!--------------------------------------------------------------------->
-
+            $filename = $usuario["profile_pic"];
+            $avatar = (!empty($filename) && file_exists(__DIR__ . '/../img/perfiles/' . $filename))
+                      ? '/img/perfiles/' . $filename
+                      : '/img/avatar_default.jpg'; // imagen por defecto
+          ?>
+          <img src="<?= htmlspecialchars($avatar) ?>" alt="Avatar" class="perfil-icon-grande">
         </div>
         <div class="right">
           <form method="post" action="update_user.php">
@@ -117,6 +116,14 @@ if (isset($_GET["usuario_id"])) {
 
             <button type="submit" class="btn">Guardar cambios</button>
           </form>
+
+          <!-- Botón eliminar usuario -->
+          <?php if ($usuario["id"] != $_SESSION["user_id"]): ?>
+            <form method="post" action="delete_user.php" onsubmit="return confirm('¿Seguro que deseas eliminar este usuario?');" style="margin-top:10px;">
+              <input type="hidden" name="id" value="<?= $usuario["id"] ?>">
+              <button type="submit" class="btn btn-danger">Eliminar usuario</button>
+            </form>
+          <?php endif; ?>
         </div>
       </div>
     <?php endif; ?>
