@@ -11,8 +11,8 @@ $user_id = $_SESSION["user_id"];
 
 // Consulta para obtener proyectos creados o asignados al usuario
 $sql = "SELECT p.id, p.name, p.description, p.is_archived, p.created_at, 
-               u.name AS assigned_username,
-               o.name AS owner_username
+        u.name AS assigned_username,
+        o.name AS owner_username
         FROM projects p
         LEFT JOIN users u ON p.assigned_to = u.id
         LEFT JOIN users o ON p.owner_id = o.id

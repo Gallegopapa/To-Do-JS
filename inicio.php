@@ -60,17 +60,17 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
         while($s = $result->fetch_assoc()) {
             echo "<li class='subtarea-item'>";
             echo "<div class='subtarea-header'>";
-            echo "<b>".htmlspecialchars($s['title'])."</b> <small>[".htmlspecialchars($s['status'])."]</small>";
+            echo "<b>".htmlspecialchars($s['title'])."</b> <small>".htmlspecialchars($s['status'] ?: '-')."</small>";
             echo "</div>";
             echo "<div class='subtarea-meta'>";
             echo "<span>Prioridad:</span> ".htmlspecialchars($s['prioridad'])." | ";
             echo "<span>".htmlspecialchars($s['etiquetas'])."</span> | ";
             echo "<span>Inicio: ".($s['start_date'] ?: '-')." / Vence: ".($s['due_date'] ?: '-')."</span>";
+            
             // Mostrar archivos si existen
-            if (!empty($s['archivos'])) {
+            if (!empty($s['archivo'])) {
               echo "<div class='archivos-tarea'><span>Archivos:</span> ";
-              $archivos = explode(',', $s['archivos']);
-              foreach ($archivos as $archivo) {
+              foreach (explode(',', $s['archivo']) as $archivo) {
                 $archivo = trim($archivo);
                 if ($archivo) {
                   echo "<a href='uploads/".htmlspecialchars($archivo)."' target='_blank'>📎 ".htmlspecialchars($archivo)."</a> ";
@@ -78,6 +78,7 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
               }
               echo "</div>";
             }
+
             echo "</div>";
             echo "<div class='subtarea-actions'>";
             echo " <a href='editar.php?id={$s['id']}'><img src='svg/lucide--edit(1).svg'></a>";
@@ -140,9 +141,9 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
           <p>Estado:</p>
           <select name="estado">
             <option value="">Todos</option>
-            <option value="pendiente" <?= (($_GET['estado'] ?? '')=="pendiente")?'selected':''; ?>>Pendiente</option>
-            <option value="en progreso" <?= (($_GET['estado'] ?? '')=="en progreso")?'selected':''; ?>>En Progreso</option>
-            <option value="completada" <?= (($_GET['estado'] ?? '')=="completada")?'selected':''; ?>>Completada</option>
+            <option value="Pendiente" <?= (($_GET['estado'] ?? '')=="Pendiente")?'selected':''; ?>>Pendiente</option>
+            <option value="En_progreso" <?= (($_GET['estado'] ?? '')=="En_progreso")?'selected':''; ?>>En Progreso</option>
+            <option value="Completada" <?= (($_GET['estado'] ?? '')=="Completada")?'selected':''; ?>>Completada</option>
           </select>
           <br>
           <p>Inicio:</p>
@@ -152,7 +153,6 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
           <input type="date" name="fecha_vencimiento" value="<?= htmlspecialchars($_GET['fecha_vencimiento'] ?? '') ?>">
 
           <button class="buscar" type="submit">Buscar</button>
-          <button class="limpiar" onclick="window.location.href='inicio.php'">Limpiar</button>
         </form>
       </nav>
       <label for="btn-menu">✘</label>
@@ -167,7 +167,7 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
             <li class="tarea-item">
                 <div class="tarea-header">
                   <b><?= htmlspecialchars($t['title']) ?></b> 
-                  <small><?= htmlspecialchars($t['status']) ?></small>
+                  <small><?= htmlspecialchars($t['status'] ?: '-') ?></small>
                 </div>
                 <div class="tarea-meta">
                   <span>Prioridad:</span> <?= htmlspecialchars($t['prioridad']) ?> | 
@@ -177,7 +177,7 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1, $user_id) {
                   <?php if (!empty($t['archivo'])): ?>
                     <div class="archivos-tarea">
                       <span>Archivos:</span>
-                      <?php foreach (explode(',', $t['archivos']) as $archivo): $archivo = trim($archivo); if ($archivo): ?>
+                      <?php foreach (explode(',', $t['archivo']) as $archivo): $archivo = trim($archivo); if ($archivo): ?>
                         <a href="uploads/<?= htmlspecialchars($archivo) ?>" target="_blank">📎 <?= htmlspecialchars($archivo) ?></a>
                       <?php endif; endforeach; ?>
                     </div>

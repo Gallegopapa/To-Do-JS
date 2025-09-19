@@ -38,15 +38,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label>Título:</label><br>
         <input type="text" name="title" value="<?= htmlspecialchars($tarea['title']) ?>" required><br><br>
 
-        <label>Descripción:</label><br>
-        <textarea name="description" rows="4" cols="50"><?= htmlspecialchars($tarea['description_md']) ?></textarea><br><br>
 
         <label>Estado:</label><br>
         <select name="status">
-            <option value="pendiente" <?= $tarea['status']=="pendiente"?"selected":"" ?>>Pendiente</option>
-            <option value="en progreso" <?= $tarea['status']=="en progreso"?"selected":"" ?>>En progreso</option>
-            <option value="completada" <?= $tarea['status']=="completada"?"selected":"" ?>>Completada</option>
-        </select><br><br>
+    <option value="Pendiente" <?= $tarea['status']=="Pendiente"?"selected":"" ?>>Pendiente</option>
+    <option value="En_progreso" <?= $tarea['status']=="En_progreso"?"selected":"" ?>>En progreso</option>
+    <option value="Completada" <?= $tarea['status']=="Completada"?"selected":"" ?>>Completada</option>
+</select>
 
         <button type="submit">Actualizar</button>
         <a href="inicio.php" class="btn-volver">Volver a Inicio</a>
