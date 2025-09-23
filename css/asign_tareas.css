@@ -1,0 +1,89 @@
+
+        body {
+            background: #f7f8fa;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        main.contenido {
+            max-width: 500px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 32px 40px;
+        }
+        h2 {
+            text-align: center;
+            color: #2d3a4b;
+            margin-bottom: 24px;
+        }
+        form label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 6px;
+            color: #3a4a5d;
+            font-weight: 500;
+        }
+        form input[type="text"],
+        form input[type="date"],
+        form textarea,
+        form select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #dbe2ea;
+            border-radius: 6px;
+            background: #f9fafb;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        form input[type="text"]:focus,
+        form input[type="date"]:focus,
+        form textarea:focus,
+        form select:focus {
+            border-color: #6c63ff;
+            outline: none;
+        }
+        form textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        button[type="submit"], button[type="button"] {
+            background: linear-gradient(90deg, #6c63ff 0%, #48c6ef 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 22px;
+            font-size: 1rem;
+            font-weight: 600;
+            /* margin-top: 18px; */
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(76, 110, 245, 0.08);
+            transition: background 0.2s;
+        }
+        button[type="submit"]:hover, button[type="button"]:hover {
+            background: linear-gradient(90deg, #48c6ef 0%, #6c63ff 100%);
+        }
+        #nombreArchivo {
+            display: block;
+            margin-top: 8px;
+            color: #6c63ff;
+            font-size: 0.95rem;
+        }
+        .extra-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 28px;
+        }
+        .extra-buttons button {
+            background: #e0e7ff;
+            color: #2d3a4b;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 18px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .extra-buttons button:hover {
+            background: #c7d2fe;
+        }

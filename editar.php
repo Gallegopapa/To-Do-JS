@@ -7,7 +7,7 @@ $tarea = $conn->query("SELECT * FROM tasks WHERE id=$id")->fetch_assoc();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
-    $description = isset($_POST['description']) ? $_POST['description'] : ''; // evita warning
+    $description = isset($_POST['description']) ? $_POST['description'] : '';
     $status = $_POST['status'];
 
     $sql = "UPDATE tasks 
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             WHERE id=$id";
     $conn->query($sql);
 
-    // ✅ Redirección según rol
+    //redirecciona segun el rol
     if (isset($_SESSION["user_role"]) && $_SESSION["user_role"] === "admin") {
         header("Location: Admin/inico_Admin.php");
     } else {

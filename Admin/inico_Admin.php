@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../config.php"); // subir un nivel
+include("../config.php");
 
 // lleva al login si no hay sesion
 if (!isset($_SESSION["user_id"])) {
@@ -14,7 +14,7 @@ $user_name = $_SESSION["user_name"];
 // obtener imagen de perfil
 $sql_profile = "SELECT profile_pic FROM users WHERE id = $user_id";
 $result_profile = $conn->query($sql_profile);
-$profile_pic = "../img/default_profile.png"; // valor por defecto
+$profile_pic = "../img/default_profile.png"; //valor por defecto
 
 if ($result_profile && $result_profile->num_rows > 0) {
     $row_profile = $result_profile->fetch_assoc();
@@ -23,7 +23,7 @@ if ($result_profile && $result_profile->num_rows > 0) {
     }
 }
 
-// filtros (los admins ven todas las tareas, no solo las suyas)
+// filtros
 $where = "parent_task_id IS NULL";
 if (!empty($_GET["etiqueta"])) {
     $etiqueta = $conn->real_escape_string($_GET["etiqueta"]);
@@ -46,11 +46,11 @@ if (!empty($_GET["fecha_vencimiento"])) {
     $where .= " AND due_date <= '$fv'";
 }
 
-// consulta todas las tareas (admin ve todas)
+//consulta todas las tareas
 $sql = "SELECT * FROM tasks WHERE $where ORDER BY created_at DESC";
 $tareas = $conn->query($sql);
 
-// función para mostrar subtareas con descripción
+//funcion para mostrar subtareas con descripción
 function listarSubtareasVista($conn, $parent_id, $nivel=1) {
     $sql = "SELECT * FROM tasks WHERE parent_task_id = $parent_id ORDER BY created_at ASC";
     $result = $conn->query($sql);
@@ -58,7 +58,7 @@ function listarSubtareasVista($conn, $parent_id, $nivel=1) {
         echo "<li class='subtarea-item' style='margin-left:".($nivel*15)."px'>";
         echo "↳ <b>".htmlspecialchars($s['title'])."</b> <small>[".htmlspecialchars($s['status'])."]</small><br>";
         
-        // ✅ Mostrar descripción desde description_md
+        //mostrar descripción desde description_md
         if (!empty($s['description_md'])) {
             echo "<div class='descripcion-tarea'>".nl2br(htmlspecialchars($s['description_md']))."</div>";
         }

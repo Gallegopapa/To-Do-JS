@@ -1,6 +1,6 @@
 <?php
 require "config.php";
-require "auth.php"; //esto son funciones de permisos y sesión
+require "auth.php";
 
 requiereLogin(); //esto asegura de que este logueado
 

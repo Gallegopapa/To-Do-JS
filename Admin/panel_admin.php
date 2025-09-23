@@ -2,7 +2,7 @@
 session_start();
 include("../config.php");
 
-// validar que sea admin
+//valida que sea admin
 if (!isset($_SESSION["user_id"])) {
     die("Acceso denegado. No hay sesión.");
 }
@@ -29,10 +29,9 @@ if (isset($_GET["usuario_id"])) {
   <meta charset="UTF-8">
   <title>Panel Admin</title>
   <link rel="stylesheet" href="../css/inicio.css">  
-  <link rel="stylesheet" href="../css/admin.css">   <!-- panel admin -->
+  <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>        
-  <!-- HEADER igual que en inicio -->
   <header class="header">
     <div class="container">
       <div class="btn-menu"><label for="btn-menu">☰</label></div>
@@ -62,11 +61,9 @@ if (isset($_GET["usuario_id"])) {
     </div>
   </div>
 
-  <!-- CONTENIDO DEL PANEL -->
   <main class="contenido_admin" style="margin-top:120px;">
     <h1>Panel de Administración</h1>
 
-    <!-- MENSAJES DE ALERTA -->
     <?php if (isset($_GET["error"]) && $_GET["error"] === "usuario_con_tareas"): ?>
       <div style="background:#f8d7da; color:#721c24; padding:10px; border:1px solid #f5c6cb; border-radius:5px; margin-bottom:15px;">
         ❌ No puedes eliminar este usuario porque tiene tareas asignadas. 
@@ -96,12 +93,12 @@ if (isset($_GET["usuario_id"])) {
       <div class="card">
         <div class="left">
           <h2>Gestión de <?= htmlspecialchars($usuario["name"]) ?></h2>
-          <!-- Imagen usuario -->
+
           <?php
             $filename = $usuario["profile_pic"];
             $avatar = (!empty($filename) && file_exists(__DIR__ . '/../img/perfiles/' . $filename))
                       ? '/img/perfiles/' . $filename
-                      : '/img/avatar_default.jpg'; // imagen por defecto
+                      : '/img/avatar_default.jpg'; //imagen por defecto
           ?>
           <img src="<?= htmlspecialchars($avatar) ?>" alt="" class="perfil-icon-grande">
         </div>

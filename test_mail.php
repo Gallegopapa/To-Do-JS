@@ -9,7 +9,7 @@ require 'PHPMailer/src/SMTP.php';
 $mail = new PHPMailer(true);
 
 try {
-    // Debug para ver en pantalla qué pasa
+
     $mail->SMTPDebug = 2; 
     $mail->Debugoutput = 'html';
 
@@ -17,7 +17,6 @@ try {
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
 
-    // ⚠️ Usa aquí tu Gmail y la contraseña de aplicación (16 caracteres sin espacios)
     $mail->Username   = 'simon.23051997@gmail.com';
     $mail->Password   = 'lnjquazbfeasiufv'; 
 
@@ -27,7 +26,7 @@ try {
     $mail->CharSet = "UTF-8";
 
     $mail->setFrom('simon.23051997@gmail.com', 'Prueba PHPMailer');
-    $mail->addAddress('promhansa@gmail.com'); // pon un correo tuyo alterno
+    $mail->addAddress('promhansa@gmail.com');
 
     $mail->isHTML(true);
     $mail->Subject = 'Prueba de envío PHPMailer';

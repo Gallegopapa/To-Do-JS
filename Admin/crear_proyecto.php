@@ -7,6 +7,19 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
+
+//valida que sea admin
+if (!isset($_SESSION["user_id"])) {
+    die("Acceso denegado. No hay sesión.");
+}
+
+// buscamos al usuario logueado
+$yo = $conn->query("SELECT role, name, profile_pic FROM users WHERE id=".(int)$_SESSION["user_id"])->fetch_assoc();
+if (!$yo || $yo["role"] !== "admin") {
+    die("Acceso restringido. Solo admins pueden entrar.");
+}
+
+
 $mensaje = "";
 
 //esto obtiene usuarios para el select

@@ -2,7 +2,7 @@
 session_start();
 include("config.php");
 
-// lleva al login si no hay sesion
+//lleva al login si no hay sesion
 if (!isset($_SESSION["user_id"])) {
   header("Location: login.php");
   exit;
@@ -11,10 +11,9 @@ if (!isset($_SESSION["user_id"])) {
 $user_id = $_SESSION["user_id"];
 $user_name = $_SESSION["user_name"];
 
-// obtener imagen de perfil
 $sql_profile = "SELECT profile_pic FROM users WHERE id = $user_id";
 $result_profile = $conn->query($sql_profile);
-$profile_pic = "img/default_profile.png"; // valor por defecto
+$profile_pic = "img/default_profile.png";
 
 if ($result_profile && $result_profile->num_rows > 0) {
     $row_profile = $result_profile->fetch_assoc();
@@ -46,7 +45,7 @@ if (!empty($_GET["fecha_vencimiento"])) {
     $where .= " AND due_date <= '$fv'";
 }
 
-// consulta tareas principales filtradas
+//consulta tareas principales filtradas
 $sql = "SELECT * FROM tasks WHERE $where ORDER BY created_at DESC";
 $tareas = $conn->query($sql);
 

@@ -32,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $link = "http://localhost/To-Do-JS/reset_password.php?token=$token";
 
-            // ===== CONFIGURACIÓN DE PHPMailer =====
             $mail = new PHPMailer(true);
 
             try {
@@ -40,9 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
 
-                // ⚠️ Aquí tu correo y contraseña de aplicación
                 $mail->Username = 'simon.23051997@gmail.com';
-                $mail->Password = 'lnjquazbfeasiufv'; // 16 caracteres exactos
+                $mail->Password = 'lnjquazbfeasiufv';
 
                 // Conexión TLS
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;

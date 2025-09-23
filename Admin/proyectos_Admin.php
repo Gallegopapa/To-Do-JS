@@ -21,7 +21,6 @@ if ($resultado === false) {
     die("Error en la consulta SQL: " . $conn->error);
 }
 
-// Duplicamos la consulta para obtener un proyecto para el botón inferior
 $resultado2 = $conn->query($sql);
 if ($resultado2 === false) {
     die("Error en la consulta SQL: " . $conn->error);
@@ -68,6 +67,12 @@ $primer_proyecto = $resultado2->fetch_assoc();
                       <td class="acciones">
           <a href="editar_proyectos.php?id=<?= $proyecto['id'] ?>">
             <img src="../svg/lucide--edit(1).svg" alt="Editar">
+          </a>
+          <a href="asignar_proyectos.php?id=<?= $proyecto['id'] ?>" >
+            <img src="../svg/tdesign--task-add-filled.svg" alt="Eliminar">
+          </a>
+          <a href="ver_tapro.php?id=<?= $proyecto['id'] ?>" >
+            <img src="../svg/icon-park-outline--eyes.svg" alt="Eliminar">
           </a>
           <a href="eliminar_proyectos.php?id=<?= $proyecto['id'] ?>" 
             onclick="return confirm('¿Seguro que deseas eliminar este proyecto?')">

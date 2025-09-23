@@ -3,7 +3,7 @@ session_start();
 $user_id = $_SESSION['user_id'];
 include("config.php");
 
-// obtener tareas principales
+//obtener tareas principales
 $sql = "SELECT * FROM tasks WHERE parent_task_id IS NULL AND creator_id = $user_id ORDER BY created_at DESC";
 $tareas = $conn->query($sql);
 

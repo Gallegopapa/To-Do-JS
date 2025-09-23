@@ -6,10 +6,8 @@ $mensaje = "";
 if (isset($_GET["token"])) {
     $token = trim($_GET["token"]);
 
-    // // DEBUG temporal
-    // echo "<p>DEBUG: Token recibido = $token</p>";
 
-    // buscar usuario con ese token válido
+    //busca usuario con ese token
     $stmt = $conn->prepare("SELECT id, reset_expiration, reset_token FROM users WHERE reset_token=?");
     $stmt->bind_param("s", $token);
     $stmt->execute();
@@ -17,12 +15,9 @@ if (isset($_GET["token"])) {
 
     if ($user = $result->fetch_assoc()) {
 
-        // // DEBUG temporal
-        // echo "<p>DEBUG: Token en DB = " . $user['reset_token'] . "</p>";
 
         if (!empty($user["reset_expiration"]) && strtotime($user["reset_expiration"]) > time()) {
-            
-            // si el usuario envió nueva contraseña
+
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $newpass = password_hash($_POST["password"], PASSWORD_DEFAULT);
 

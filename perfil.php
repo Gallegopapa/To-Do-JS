@@ -2,7 +2,7 @@
 session_start();
 include("config.php");
 
-// Redirige al login si no hay sesión
+//redirige al login si no hay sesion
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
     exit;
@@ -11,10 +11,9 @@ if (!isset($_SESSION["user_id"])) {
 $user_id = $_SESSION["user_id"];
 $user_name = $_SESSION["user_name"];
 
-// Obtener imagen de perfil actual
 $sql = "SELECT profile_pic FROM users WHERE id = $user_id";
 $result = $conn->query($sql);
-$profile_pic = "img/default_profile.png"; //por defecto
+$profile_pic = "img/default_profile.png";
 
 if ($result && $result->num_rows > 0) {
     $row = $result->fetch_assoc();
@@ -23,7 +22,7 @@ if ($result && $result->num_rows > 0) {
     }
 }
 
-// Procesar subida de imagen
+// Procesa la subida de la imagen
 $mensaje = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["nueva_imagen"])) {
@@ -33,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["nueva_imagen"])) {
     $rutaDestino = $directorioDestino . time() . "_" . $nombreArchivo;
     $tipoArchivo = strtolower(pathinfo($rutaDestino, PATHINFO_EXTENSION));
 
-    // Validaciones básicas
+    // Validaciones
     $tiposPermitidos = ['jpg', 'jpeg', 'png', 'gif'];
     if (in_array($tipoArchivo, $tiposPermitidos) && getimagesize($archivo["tmp_name"])) {
         if (move_uploaded_file($archivo["tmp_name"], $rutaDestino)) {

@@ -9,7 +9,6 @@ if (!isset($_SESSION["user_id"])) {
 
 $user_id = $_SESSION["user_id"];
 
-// Consulta para obtener proyectos creados o asignados al usuario
 $sql = "SELECT p.id, p.name, p.description, p.is_archived, p.created_at, 
         u.name AS assigned_username,
         o.name AS owner_username

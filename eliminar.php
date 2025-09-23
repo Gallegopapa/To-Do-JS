@@ -4,7 +4,7 @@ include("config.php");
 
 $id = $_GET['id'];
 
-// Elimina subtareas y tarea principal
+//elimina subtareas y tarea principal
 $conn->query("DELETE FROM tasks WHERE parent_task_id=$id");
 $conn->query("DELETE FROM tasks WHERE id=$id");
 

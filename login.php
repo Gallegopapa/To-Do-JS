@@ -8,13 +8,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST["email"]);
     $pass  = $_POST["password"];
 
-    // consulta para obtener el usuario con ese correo
+    //se obtiene el usuario con ese correo
     $stmt = $conn->prepare("SELECT id, name, password_hash, role FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // verifica si se encontró el usuario
+    //verifica si se encontro el usuario
     if ($user = $result->fetch_assoc()) {
         if (password_verify($pass, $user["password_hash"])) {
             // guardar datos en la sesión
