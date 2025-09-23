@@ -14,7 +14,7 @@ $sql = "SELECT p.id, p.name, p.description, p.is_archived, p.created_at,
         FROM projects p
         INNER JOIN users u ON p.owner_id = u.id
         LEFT JOIN users a ON p.assigned_to = a.id
-        WHERE u.role = 'admin'
+        WHERE u.role = 'admin' AND p.is_archived = 0
         ORDER BY p.created_at DESC";
 
 $resultado = $conn->query($sql);
