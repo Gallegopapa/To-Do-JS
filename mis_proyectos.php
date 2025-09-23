@@ -16,7 +16,8 @@ $sql = "SELECT p.id, p.name, p.description, p.is_archived, p.created_at,
         FROM projects p
         LEFT JOIN users u ON p.assigned_to = u.id
         LEFT JOIN users o ON p.owner_id = o.id
-        WHERE p.owner_id = $user_id OR p.assigned_to = $user_id
+        WHERE (p.owner_id = $user_id OR p.assigned_to = $user_id)
+          AND p.is_archived = 0
         ORDER BY p.created_at DESC";
 
 $resultado = $conn->query($sql);

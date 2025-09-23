@@ -39,7 +39,21 @@ if ($data["total"] > 0) {
     exit;
 }
 
-// Si no tiene tareas, borrar usuario
+// Revisar si el usuario tiene proyectos creados
+$stmt = $conn->prepare("SELECT COUNT(*) as total FROM projects WHERE owner_id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+$data = $result->fetch_assoc();
+$stmt->close();
+
+if ($data["total"] > 0) {
+    echo "No se puede eliminar: tiene proyectos.";
+    header("Location: panel_admin.php?error=usuario_con_proyectos");
+    exit;
+}
+
+// Si no tiene tareas ni proyectos, borrar usuario
 $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
 $stmt->bind_param("i", $id);
 
@@ -53,4 +67,4 @@ $conn->close();
 header("Location: panel_admin.php?msg=usuario_eliminado");
 exit;
 ?>
-<!DOCTYPE html> 
+<!DOCTYPE html>

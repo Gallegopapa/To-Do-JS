@@ -64,6 +64,7 @@ tbody tr:hover {
 /* ===== Acciones ===== */
 td.acciones {
   display: flex;
+  padding-top: 27px;
   gap: 10px; /* espacio entre íconos */
   align-items: center;
   justify-content: flex-start; /* puedes cambiar a center si quieres centrarlos */

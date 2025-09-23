@@ -10,14 +10,20 @@ if (!isset($_SESSION["user_id"])) {
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
 
-    // 🔥 Primero eliminar posibles tareas ligadas al proyecto (si tu tabla tasks tiene FK con projects)
+    // Eliminar tareas relacionadas
     $conn->query("DELETE FROM tasks WHERE project_id = $id");
 
-    // 🔥 Luego eliminar el proyecto
+    // Eliminar el proyecto
     $stmt = $conn->prepare("DELETE FROM projects WHERE id = ?");
     $stmt->bind_param("i", $id);
 
     if ($stmt->execute()) {
+        if ($stmt->affected_rows > 0) {
+            echo "Proyecto eliminado correctamente.";
+        } else {
+            echo "No se encontró el proyecto con ese ID.";
+        }
+        // Puedes comentar el header para ver el mensaje
         header("Location: proyectos_admin.php?msg=proyecto_eliminado");
     } else {
         echo "Error al eliminar proyecto: " . $conn->error;
