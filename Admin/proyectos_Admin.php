@@ -14,7 +14,6 @@ $sql = "SELECT p.id, p.name, p.description, p.is_archived, p.created_at,
         FROM projects p
         INNER JOIN users u ON p.owner_id = u.id
         LEFT JOIN users a ON p.assigned_to = a.id
-        WHERE u.role = 'admin'
         ORDER BY p.created_at DESC";
 
 $resultado = $conn->query($sql);
@@ -57,30 +56,27 @@ $primer_proyecto = $resultado2->fetch_assoc();
         </thead>
         <tbody>
           <?php while ($proyecto = $resultado->fetch_assoc()): ?>
-  <?php if ($_SESSION["role"] === "user" && $proyecto['is_archived']): ?>
-    <?php continue; // si es usuario normal y el proyecto está inactivo, no lo muestra ?>
-  <?php endif; ?>
-  <tr>
-    <td><?= htmlspecialchars($proyecto['name']) ?></td>
-    <td><?= htmlspecialchars($proyecto['description']) ?></td>
-    <td class="<?= $proyecto['is_archived'] ? 'estado-inactivo' : 'estado-activo' ?>">
-      <?= $proyecto['is_archived'] ? 'Inactivo' : 'Activo' ?>
-    </td>
-    <td><?= $proyecto['assigned_username'] ? htmlspecialchars($proyecto['assigned_username']) : 'Sin asignar' ?></td>
-    <td><?= htmlspecialchars($proyecto['owner_username']) ?></td>
-    <td><?= htmlspecialchars($proyecto['created_at']) ?></td>
-    <td class="acciones">
-      <a href="editar_proyectos.php?id=<?= $proyecto['id'] ?>">
-        <img src="../svg/lucide--edit(1).svg" alt="Editar">
-      </a>
-      <a href="eliminar_proyectos.php?id=<?= $proyecto['id'] ?>" 
-        onclick="return confirm('¿Seguro que deseas eliminar este proyecto?')">
-        <img src="../svg/material-symbols--close (1).svg" alt="Eliminar">
-      </a>
-    </td>
-  </tr>
-<?php endwhile; ?>
+            <tr>
+              <td><?= htmlspecialchars($proyecto['name']) ?></td>
+              <td><?= htmlspecialchars($proyecto['description']) ?></td>
+              <td class="<?= $proyecto['is_archived'] ? 'estado-inactivo' : 'estado-activo' ?>">
+                <?= $proyecto['is_archived'] ? 'Inactivo' : 'Activo' ?>
+              </td>
+              <td><?= $proyecto['assigned_username'] ? htmlspecialchars($proyecto['assigned_username']) : 'Sin asignar' ?></td>
+              <td><?= htmlspecialchars($proyecto['owner_username']) ?></td>
+              <td><?= htmlspecialchars($proyecto['created_at']) ?></td>
+                      <td class="acciones">
+          <a href="editar_proyectos.php?id=<?= $proyecto['id'] ?>">
+            <img src="../svg/lucide--edit(1).svg" alt="Editar">
+          </a>
+          <a href="eliminar_proyectos.php?id=<?= $proyecto['id'] ?>" 
+            onclick="return confirm('¿Seguro que deseas eliminar este proyecto?')">
+            <img src="../svg/material-symbols--close (1).svg" alt="Eliminar">
+          </a>
+        </td>
 
+            </tr>
+          <?php endwhile; ?>
         </tbody>
       </table>
     <?php else: ?>
