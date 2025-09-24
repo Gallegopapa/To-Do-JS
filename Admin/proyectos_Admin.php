@@ -73,9 +73,10 @@ $primer_proyecto = $resultado2->fetch_assoc();
           </a>
           <form action="ver_tapro.php" method="POST" style="display:inline;">
               <input type="hidden" name="project_id" value="<?= $proyecto['id'] ?>">
-              <button type="submit" style="background:none;border:none;padding:0;">
-                  <img src="../svg/icon-park-outline--eyes.svg" alt="Ver tareas">
-              </button>
+              <a href="ver_tapro.php?project_id=<?= $proyecto['id'] ?>">
+                <img src="../svg/icon-park-outline--eyes.svg" alt="Ver tareas">
+            </a>
+
           </form>
           <a href="eliminar_proyectos.php?id=<?= $proyecto['id'] ?>" 
             onclick="return confirm('¿Seguro que deseas eliminar este proyecto?')">

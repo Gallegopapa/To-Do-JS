@@ -7,26 +7,20 @@ include("../config.php");
 // Recibe el id del proyecto por GET
 $project_id = isset($_GET['project_id']) ? intval($_GET['project_id']) : 0;
 
-  $stmt = $conn->prepare("SELECT * FROM admin_tasks WHERE project_id = ? ORDER BY created_at DESC");
-    $stmt->bind_param("i", $project_id);
+// Validar que exista un project_id
+if ($project_id <= 0) {
+    die("No se especificó un proyecto válido.");
+}
 
-// Preparar la consulta según caso
-if ($project_id > 0) {
-    if ($is_admin) {
-        $stmt = $conn->prepare("SELECT * FROM admin_tasks WHERE project_id = ? ORDER BY created_at DESC");
-        $stmt->bind_param("i", $project_id);
-    } else {
-        $stmt = $conn->prepare("SELECT * FROM admin_tasks WHERE creator_id = ? AND project_id = ? ORDER BY created_at DESC");
-        $stmt->bind_param("ii", $user_id, $project_id);
-    }
+// Preparar la consulta
+if ($is_admin) {
+    // ✅ El admin ve todas las tareas del proyecto
+    $stmt = $conn->prepare("SELECT * FROM admin_tasks WHERE project_id = ? ORDER BY created_at DESC");
+    $stmt->bind_param("i", $project_id);
 } else {
-    if ($is_admin) {
-        $stmt = $conn->prepare("SELECT * FROM admin_tasks ORDER BY created_at DESC");
-        // no bind necesario
-    } else {
-        $stmt = $conn->prepare("SELECT * FROM admin_tasks WHERE creator_id = ? ORDER BY created_at DESC");
-        $stmt->bind_param("i", $user_id);
-    }
+    // ✅ El usuario solo ve las tareas del proyecto si es creador o asignado
+    $stmt = $conn->prepare("SELECT * FROM admin_tasks WHERE project_id = ? AND (creator_id = ? OR assigned_to = ?) ORDER BY created_at DESC");
+    $stmt->bind_param("iii", $project_id, $user_id, $user_id);
 }
 
 // Verificar que la preparación fue exitosa
@@ -48,11 +42,7 @@ $result = $stmt->get_result();
     <main class="contenido">
         <h2>
             <?php
-            if ($project_id > 0) {
-                echo "Tareas asignadas del Proyecto #".htmlspecialchars($project_id);
-            } else {
-                echo $is_admin ? "Todas las tareas asignadas" : "Mis tareas";
-            }
+            echo "Tareas asignadas del Proyecto #" . htmlspecialchars($project_id);
             ?>
         </h2>
         <table>
@@ -83,10 +73,10 @@ $result = $stmt->get_result();
                         <?php endif; ?>
                     </td>
                     <td class="acciones">
-                        <a href="editar_tarea.php?id=<?= htmlspecialchars($row['id']) ?>">
+                        <a href="editar_tarea.php?id=<?= htmlspecialchars($row['id']) ?>&project_id=<?= $project_id ?>">
                             <img src="../svg/lucide--edit(1).svg" alt="Editar">
                         </a>
-                        <a href="eliminar_tarea.php?id=<?= htmlspecialchars($row['id']) ?>"
+                        <a href="eliminar_tarea.php?id=<?= htmlspecialchars($row['id']) ?>&project_id=<?= $project_id ?>"
                             onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')">
                             <img src="../svg/material-symbols--close (1).svg" alt="Eliminar">
                         </a>
@@ -100,7 +90,7 @@ $result = $stmt->get_result();
             <?php endif; ?>
         </table>
         <div style="margin-top:20px;">
-            <button onclick="window.location.href='asignar_proyectos.php'">Crear nueva tarea</button>
+            <button onclick="window.location.href='asignar_proyectos.php?project_id=<?= $project_id ?>'">Crear nueva tarea</button>
             <button onclick="window.location.href='proyectos_Admin.php'">Volver</button>
         </div>
     </main>

@@ -1,20 +1,37 @@
 <?php
 session_start();
-$user_id = $_SESSION['user_id'];
 include("../config.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $status = $_POST['status'];
-    $parent = !empty($_POST['parent_task_id']) ? $_POST['parent_task_id'] : "NULL";
-    $etiquetas = $_POST['etiquetas'];
-    $prioridad = $_POST['prioridad'];
-    $start_date = !empty($_POST['start_date']) ? "'".$_POST['start_date']."'" : "NULL";
-    $due_date = !empty($_POST['due_date']) ? "'".$_POST['due_date']."'" : "NULL";
+$user_id = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : 0;
+if (!$user_id) {
+    header("Location: login.php");
+    exit;
+}
 
-    // ✅ Capturar project_id que viene del formulario
-    $project_id = isset($_POST['project_id']) ? intval($_POST['project_id']) : 0;
+// Captura el project_id desde GET (para el hidden) o POST (cuando se envía el formulario)
+$project_id = 0;
+if (isset($_GET['id'])) {
+    $project_id = intval($_GET['id']);
+} elseif (isset($_POST['project_id'])) {
+    $project_id = intval($_POST['project_id']);
+}
+
+// Función para convertir valores opcionales a enteros seguros (0 si es null)
+function safeInt($value) {
+    return isset($value) && $value !== '' ? intval($value) : 0;
+}
+
+// Manejo del POST para crear la tarea
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title = $_POST['title'] ?? '';
+    $description = $_POST['description'] ?? '';
+    $status = $_POST['status'] ?? 'Pendiente';
+    $parent = safeInt($_POST['parent_task_id'] ?? null);
+    $assigned_to = safeInt($_POST['assigned_to'] ?? null);
+    $etiquetas = $_POST['etiquetas'] ?? '';
+    $prioridad = $_POST['prioridad'] ?? 'Media';
+    $start_date = $_POST['start_date'] ?? '';
+    $due_date = $_POST['due_date'] ?? '';
 
     // Manejo del archivo
     $archivo_nombre = "";
@@ -30,34 +47,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         move_uploaded_file($archivo_tmp, $carpeta_destino . $archivo_nombre);
     }
 
-    // ✅ Insertar en la tabla admin_tasks incluyendo project_id
+    // Insertar la tarea vinculada al proyecto y opcionalmente a un usuario
     $sql = "INSERT INTO admin_tasks 
-        (title, description_md, status, parent_task_id, creator_id, etiquetas, priority, prioridad, start_date, due_date, archivo, project_id, created_at) 
-        VALUES 
-        ('$title', '$description', '$status', $parent, $user_id, '$etiquetas', '$prioridad', '$prioridad', $start_date, $due_date, '$archivo_nombre', $project_id, NOW())";
+        (title, description_md, status, parent_task_id, creator_id, assigned_to, etiquetas, priority, prioridad, start_date, due_date, archivo, project_id, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
 
-    if ($conn->query($sql)) {
-        $task_id = $conn->insert_id; // id de la tarea recién creada
-
-        // 🔹 Obtener los usuarios asignados a este proyecto
-        $usuarios_sql = "SELECT user_id FROM proyectos_usuarios WHERE project_id = $project_id";
-        $resU = $conn->query($usuarios_sql);
-
-        while ($u = $resU->fetch_assoc()) {
-            $asignado = $u['user_id'];
-
-            // ✅ Actualizar la tarea para reflejar el usuario asignado
-            // 👉 Si quieres que una tarea solo tenga un usuario, esto basta.
-            $update = "UPDATE admin_tasks SET assigned_to = $asignado WHERE id = $task_id";
-            $conn->query($update);
-
-            // ⚠️ Si necesitas que cada usuario tenga su propia copia de la tarea,
-            // aquí en vez de UPDATE se debería hacer un INSERT duplicando la tarea.
-        }
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        die("Error en la preparación de la consulta: " . $conn->error);
     }
 
-    header("Location: ver_tapro.php?project_id=$project_id");
-    exit;
+    // Bind seguro usando valores enteros reemplazando null por 0
+    // 🔹 Nota importante: la última variable $project_id es int, por eso "i" al final
+    $stmt->bind_param(
+        "sssiisssssssi",
+        $title,
+        $description,
+        $status,
+        $parent,
+        $user_id,
+        $assigned_to,
+        $etiquetas,
+        $prioridad,
+        $prioridad,
+        $start_date,
+        $due_date,
+        $archivo_nombre,
+        $project_id
+    );
+
+    if ($stmt->execute()) {
+        header("Location: ver_tapro.php?project_id=$project_id");
+        exit;
+    } else {
+        die("Error al crear la tarea: " . $stmt->error);
+    }
 }
 ?>
 
@@ -72,8 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <main class="contenido">
     <h2>Crear Nueva Tarea (Admin)</h2>
     <form method="POST" enctype="multipart/form-data">
-        <!-- ✅ Campo oculto que asegura que se envía el project_id -->
-        <input type="hidden" name="project_id" value="<?= isset($_GET['project_id']) ? intval($_GET['project_id']) : 0 ?>">
+        <input type="hidden" name="project_id" value="<?= $project_id ?>">
 
         <label>Título:</label>
         <input type="text" name="title" required>
@@ -92,17 +115,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <select name="parent_task_id">
             <option value="">Ninguna (Tarea principal)</option>
             <?php
-            $padres = $conn->query("SELECT id, title FROM admin_tasks WHERE parent_task_id IS NULL AND creator_id = $user_id");
-            while($p = $padres->fetch_assoc()):
+            $padres = $conn->query("SELECT id, title FROM admin_tasks WHERE parent_task_id = 0 AND creator_id = $user_id");
+            if ($padres) {
+                while($p = $padres->fetch_assoc()):
+                    ?>
+                    <option value="<?= $p['id'] ?>"><?= htmlspecialchars($p['title']) ?></option>
+                    <?php
+                endwhile;
+            }
             ?>
-                <option value="<?= $p['id'] ?>"><?= htmlspecialchars($p['title']) ?></option>
-            <?php endwhile; ?>
+        </select>
+
+        <label>Asignar a usuario:</label>
+        <select name="assigned_to">
+            <option value="">Sin asignar</option>
+            <?php
+            $usuarios = $conn->query("SELECT u.id, u.name FROM users u INNER JOIN proyectos_usuarios pu ON u.id = pu.user_id WHERE pu.project_id = $project_id");
+            if ($usuarios) {
+                while($usuario = $usuarios->fetch_assoc()):
+                    ?>
+                    <option value="<?= $usuario['id'] ?>"><?= htmlspecialchars($usuario['name']) ?></option>
+                    <?php
+                endwhile;
+            }
+            ?>
         </select>
 
         <label>Etiquetas (separadas por coma):</label>
         <input type="text" name="etiquetas">
 
-        <label>Prioridad (simple):</label>
+        <label>Prioridad:</label>
         <select name="prioridad">
             <option value="Baja">Baja</option>
             <option value="Media" selected>Media</option>
@@ -125,10 +167,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="extra-buttons">
             <button type="submit">Guardar</button>
             <a href="inico_Admin.php"><button type="button">Volver</button></a>
-            <a href="ver_tapro.php?project_id=<?= isset($_GET['project_id']) ? intval($_GET['project_id']) : 0 ?>"><button type="button">Ver tareas asignadas</button></a>
+            <a href="ver_tapro.php?project_id=<?= $project_id ?>"><button type="button">Ver tareas asignadas</button></a>
         </div>
     </form>
 </main>
+
 <script>
 const inputArchivo = document.getElementById('archivo');
 const nombreArchivo = document.getElementById('nombreArchivo');
