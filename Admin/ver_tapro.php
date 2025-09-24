@@ -76,6 +76,9 @@ $result = $stmt->get_result();
                         <a href="editar_tarea.php?id=<?= htmlspecialchars($row['id']) ?>&project_id=<?= $project_id ?>">
                             <img src="../svg/lucide--edit(1).svg" alt="Editar">
                         </a>
+                         <a href="../comentarios_proyecto.php?project_id=<?= $project_id ?>">
+                            <img src="../svg/ic--twotone-message.svg" alt="Comentarios">
+                        </a>
                         <a href="eliminar_tarea.php?id=<?= htmlspecialchars($row['id']) ?>&project_id=<?= $project_id ?>"
                             onclick="return confirm('¿Seguro que deseas eliminar esta tarea?')">
                             <img src="../svg/material-symbols--close (1).svg" alt="Eliminar">

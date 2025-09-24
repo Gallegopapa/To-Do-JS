@@ -13,9 +13,11 @@ if (!$yo || $yo["role"] !== "admin") {
     die("Acceso restringido. Solo admins pueden entrar.");
 }   
 
-// Captura el project_id desde GET (para el hidden) o POST (cuando se envía el formulario)
+// Captura el project_id desde GET o POST
 $project_id = 0;
-if (isset($_GET['id'])) {
+if (isset($_GET['project_id'])) {
+    $project_id = intval($_GET['project_id']);
+} elseif (isset($_GET['id'])) {
     $project_id = intval($_GET['id']);
 } elseif (isset($_POST['project_id'])) {
     $project_id = intval($_POST['project_id']);

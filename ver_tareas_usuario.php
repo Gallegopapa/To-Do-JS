@@ -58,9 +58,9 @@ $result = $stmt->get_result();
         <?php while($row = $result->fetch_assoc()): ?>
         <tr>
           <td><?= htmlspecialchars($row['title'] ?? '') ?></td>
-          <td><?= htmlspecialchars($row['description_md'] ?? '') ?></td>
+          <td><?= htmlspecialchars($row['description'] ?? '') ?></td>
           <td><?= htmlspecialchars($row['status'] ?? '') ?></td>
-          <td><?= htmlspecialchars($row['prioridad'] ?? $row['priority'] ?? '') ?></td>
+          <td><?= htmlspecialchars($row['priority'] ?? '') ?></td>
           <td><?= htmlspecialchars($row['start_date'] ?? '') ?></td>
           <td><?= htmlspecialchars($row['due_date'] ?? '') ?></td>
           <td>

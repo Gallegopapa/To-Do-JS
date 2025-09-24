@@ -67,6 +67,9 @@ if ($resultado === false) {
                   <a href="ver_tareas_usuario.php?project_id=<?= $proyecto['id'] ?>">
                       <img src="svg/icon-park-outline--eyes.svg" alt="Ver tareas">
                   </a>
+                  <a href="comentarios_proyecto.php?project_id=<?= $proyecto['id'] ?>">
+                            <img src="svg/ic--twotone-message.svg" alt="Comentarios">
+                        </a>
               </td>
             </tr>
           <?php endwhile; ?>
