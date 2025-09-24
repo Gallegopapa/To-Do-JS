@@ -64,16 +64,19 @@ $primer_proyecto = $resultado2->fetch_assoc();
               <td><?= $proyecto['assigned_username'] ? htmlspecialchars($proyecto['assigned_username']) : 'Sin asignar' ?></td>
               <td><?= htmlspecialchars($proyecto['owner_username']) ?></td>
               <td><?= htmlspecialchars($proyecto['created_at']) ?></td>
-                      <td class="acciones">
+              <td class="acciones">
           <a href="editar_proyectos.php?id=<?= $proyecto['id'] ?>">
             <img src="../svg/lucide--edit(1).svg" alt="Editar">
           </a>
           <a href="asignar_proyectos.php?id=<?= $proyecto['id'] ?>" >
             <img src="../svg/tdesign--task-add-filled.svg" alt="Eliminar">
           </a>
-          <a href="ver_tapro.php?id=<?= $proyecto['id'] ?>" >
-            <img src="../svg/icon-park-outline--eyes.svg" alt="Eliminar">
-          </a>
+          <form action="ver_tapro.php" method="POST" style="display:inline;">
+              <input type="hidden" name="project_id" value="<?= $proyecto['id'] ?>">
+              <button type="submit" style="background:none;border:none;padding:0;">
+                  <img src="../svg/icon-park-outline--eyes.svg" alt="Ver tareas">
+              </button>
+          </form>
           <a href="eliminar_proyectos.php?id=<?= $proyecto['id'] ?>" 
             onclick="return confirm('¿Seguro que deseas eliminar este proyecto?')">
             <img src="../svg/material-symbols--close (1).svg" alt="Eliminar">

@@ -1,5 +1,4 @@
-
-        body {
+body {
             background: #f7f8fa;
             font-family: 'Segoe UI', Arial, sans-serif;
         }
@@ -70,20 +69,22 @@
         }
         .extra-buttons {
             display: flex;
-            justify-content: space-between;
-            margin-top: 28px;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
         }
+
         .extra-buttons button {
-            background: #e0e7ff;
-            color: #2d3a4b;
-            border: none;
+            padding: 8px 20px;
             border-radius: 6px;
-            padding: 8px 18px;
-            font-size: 1rem;
-            font-weight: 500;
+            border: none;
+            background: #1976d2;
+            color: #fff;
             cursor: pointer;
+            font-weight: 500;
             transition: background 0.2s;
         }
+
         .extra-buttons button:hover {
-            background: #c7d2fe;
+            background: #1565c0;
         }

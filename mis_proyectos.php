@@ -48,6 +48,7 @@ if ($resultado === false) {
             <th>Asignado a</th>
             <th>Creador</th>
             <th>Creado el</th>
+            <th>Acciones </th>
           </tr>
         </thead>
         <tbody>
@@ -61,6 +62,9 @@ if ($resultado === false) {
               <td><?= $proyecto['assigned_username'] ? htmlspecialchars($proyecto['assigned_username']) : 'Sin asignar' ?></td>
               <td><?= htmlspecialchars($proyecto['owner_username']) ?></td>
               <td><?= htmlspecialchars($proyecto['created_at']) ?></td>
+            <td class="acciones">
+                    <a href="ver_tareas_usuario.php?id=<?= $proyecto['id'] ?>">
+                        <img src="svg/icon-park-outline--eyes.svg" alt="Editar">
             </tr>
           <?php endwhile; ?>
         </tbody>
