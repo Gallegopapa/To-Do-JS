@@ -7,6 +7,10 @@ if (!isset($_SESSION["user_id"])) {
   header("Location: ../login.php");
   exit;
 }
+$yo = $conn->query("SELECT role, name, profile_pic FROM users WHERE id=".(int)$_SESSION["user_id"])->fetch_assoc();
+if (!$yo || $yo["role"] !== "admin") {
+    die("Acceso restringido. Solo admins pueden entrar.");
+}   
 
 $user_id = $_SESSION["user_id"];
 $user_name = $_SESSION["user_name"];

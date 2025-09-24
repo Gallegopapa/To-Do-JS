@@ -8,6 +8,11 @@ if (!$user_id) {
     exit;
 }
 
+$yo = $conn->query("SELECT role, name, profile_pic FROM users WHERE id=".(int)$_SESSION["user_id"])->fetch_assoc();
+if (!$yo || $yo["role"] !== "admin") {
+    die("Acceso restringido. Solo admins pueden entrar.");
+}   
+
 // Captura el project_id desde GET (para el hidden) o POST (cuando se envía el formulario)
 $project_id = 0;
 if (isset($_GET['id'])) {

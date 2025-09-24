@@ -6,6 +6,10 @@ if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
     exit;
 }
+$yo = $conn->query("SELECT role, name, profile_pic FROM users WHERE id=".(int)$_SESSION["user_id"])->fetch_assoc();
+if (!$yo || $yo["role"] !== "admin") {
+    die("Acceso restringido. Solo admins pueden entrar.");
+}   
 
 // Consulta de proyectos creados por administradores
 $sql = "SELECT p.id, p.name, p.description, p.is_archived, p.created_at, 

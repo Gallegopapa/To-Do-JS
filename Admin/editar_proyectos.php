@@ -7,6 +7,11 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
+$yo = $conn->query("SELECT role, name, profile_pic FROM users WHERE id=".(int)$_SESSION["user_id"])->fetch_assoc();
+if (!$yo || $yo["role"] !== "admin") {
+    die("Acceso restringido. Solo admins pueden entrar.");
+}   
+
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
     echo "ID de proyecto no especificado o inválido.";
     exit;

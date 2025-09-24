@@ -5,6 +5,11 @@ include("../config.php");
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
+$yo = $conn->query("SELECT role, name, profile_pic FROM users WHERE id=".(int)$_SESSION["user_id"])->fetch_assoc();
+if (!$yo || $yo["role"] !== "admin") {
+    die("Acceso restringido. Solo admins pueden entrar.");
+}   
+
 // Obtener datos actuales de la tarea
 $sql = "SELECT * FROM admin_tasks WHERE id = $id";
 $result = $conn->query($sql);
